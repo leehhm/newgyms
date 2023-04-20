@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="/owner/order/ownerOrderList" extends="baseLayout">
+       <put-attribute name="title" value="사업자 주문/결제 관리 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/owner/order/ownerOrderList.jsp" />
+    </definition>
+    
+    <definition name="/owner/order/ownerOrderDetail" extends="baseLayout">
+       <put-attribute name="title" value="사업자 주문/결제 상세 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/owner/order/ownerOrderDetail.jsp" />
+    </definition>
+    
+    <definition name="/owner/order/ownerOrderCancel" extends="baseLayout">
+       <put-attribute name="title" value="사업자 환불접수 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/owner/order/ownerOrderCancel.jsp" />
+    </definition>
+    
+</tiles-definitions>

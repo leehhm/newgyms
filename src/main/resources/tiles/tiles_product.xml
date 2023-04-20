@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+      <definition name="/product/productList" extends="baseLayout">
+         <put-attribute name="title" value="카테고리별 조회 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/product/productList.jsp" />
+      </definition>
+
+	  <definition name="/product/productDetail" extends="baseLayout">
+         <put-attribute name="title" value="상품 상세페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/product/productDetail.jsp" />
+      </definition>  
+      
+      <definition name="/product/productSorting" extends="baseLayout">
+         <put-attribute name="title" value="상품 정렬 결과 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/product/productList.jsp" />
+      </definition>
+      
+      
+      <definition name="/product/searchProduct" extends="baseLayout">
+         <put-attribute name="title" value="상품 검색 결과 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/product/searchProduct.jsp" />
+      </definition>
+      
+      <definition name="/product/searchProductByCondition" extends="baseLayout">
+         <put-attribute name="title" value="상품 상세 검색 결과 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/product/searchProduct.jsp" />
+      </definition>
+  
+</tiles-definitions>
+
+

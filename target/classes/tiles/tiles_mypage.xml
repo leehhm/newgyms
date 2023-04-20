@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+    <definition name="/mypage/myOrderList" extends="baseLayout">
+       <put-attribute name="title" value="마이페이지 메인" />
+       <put-attribute name="body" value="/WEB-INF/views/mypage/myOrderList.jsp" />
+    </definition>
+    <definition name="/mypage/myOrderDetail" extends="baseLayout">
+       <put-attribute name="title" value="주문 상세 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/mypage/myOrderDetail.jsp" />
+    </definition>
+    <definition name="/mypage/myOrderCancel" extends="baseLayout">
+       <put-attribute name="title" value="주문 취소 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/mypage/myOrderCancel.jsp" />
+    </definition>
+    
+    <definition name="/mypage/myStackList" extends="baseLayout">
+       <put-attribute name="title" value="적립금 조회 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/mypage/myStackList.jsp" />
+    </definition>
+    
+    <definition name="/mypage/myArticleList" extends="baseLayout">
+       <put-attribute name="title" value="게시글 관리 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/mypage/myArticleList.jsp" />
+    </definition>
+    
+    <definition name="/mypage/myReviewList" extends="baseLayout">
+		<put-attribute name="title" value="이용후기 관리 페이지" />
+		<put-attribute name="body"	value="/WEB-INF/views/mypage/myReviewList.jsp" />
+	</definition>
+    
+    <definition name="/mypage/myQnaList" extends="baseLayout">
+		<put-attribute name="title" value="QnA 관리 페이지" />
+		<put-attribute name="body"	value="/WEB-INF/views/mypage/myQnaList.jsp" />
+	</definition>
+    
+    <definition name="/mypage/myPageModify" extends="baseLayout">
+       <put-attribute name="title" value="회원정보 수정 비밀번호 확인 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/mypage/myPageModify.jsp" />
+    </definition>
+    <definition name="/mypage/myDetailInfo" extends="baseLayout">
+       <put-attribute name="title" value="회원정보 수정 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/mypage/myDetailInfo.jsp" />
+    </definition>
+    <definition name="/mypage/deleteMemberForm" extends="baseLayout">
+       <put-attribute name="title" value="회원탈퇴 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/mypage/deleteMemberForm.jsp" />
+    </definition>
+    
+</tiles-definitions>

@@ -1,0 +1,275 @@
+@charset "UTF-8";
+
+@font-face {
+   font-family: 'GmarketSansMedium';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff')
+      format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
+@font-face {
+   font-family: 'establishRetrosansOTF';
+   src:
+      url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2112@1.0/establishRetrosansOTF.woff')
+      format('woff');
+   font-weight: normal;
+   font-style: normal;
+}
+
+* {
+   font-family: 'GmarketSansMedium';
+   margin: 0px;
+   padding: 0px;
+   color: rgb(51, 51, 51);
+}
+
+/* cutsom */
+.con-min-width {
+   min-width: 1920px;
+}
+
+.con {
+   width: 1200px;
+   margin: 0 auto;
+}
+
+/* 슬라이드 */
+#ad_main_banner {
+   width: 1920px;
+   height: 700px;
+   margin: 0 auto;
+}
+
+/* section-1 */
+.section-1 {
+   margin: 70px 0px 100px 330px;
+}
+
+.section-1>img {
+   width: 600px;
+   height: 548px;
+}
+
+/* 타임세일타이머 */
+.saleTimer {
+   text-align: center;
+   margin-top: 100px;
+   border-top: 2px solid black;
+   border-bottom: 2px solid black;
+}
+
+.timer-title {
+   color: black !important;
+   font-family: 'establishRetrosansOTF' !important;
+   font-size: 40px;
+   margin-top: 20px;
+   margin-bottom: 10px;
+}
+
+.timer-text {
+   font-size: 30px;
+   margin-bottom: 10px;
+   color:tomato;
+}
+
+.time span {
+   color: black !important;
+   font-family: 'establishRetrosansOTF' !important;
+   font-size: 90px;
+}
+
+/* 인기 이용권 */
+.productList .pop_title {
+   font-size:28px;
+   margin-bottom:10px;
+   margin-top: 100px;
+   text-align: center;
+}
+.productList .pop{
+   margin-bottom:30px;
+   font-size:16px;
+   text-align:center;
+   color:#999999;
+}
+.productList .pop:hover {
+   color:#F9C200;
+}
+.productList .container {
+   width: 100%;
+   font-size: 0.75em;
+   margin-top: 20px;
+   display: grid;
+   grid-template-columns: repeat(4, 300px);
+}
+
+.productList .container .item {
+   margin: 0 10px;
+   padding: 10px 0px;
+   float: left;
+   margin: auto;
+}
+
+
+.productList .container .item .product_image {
+	position:relative; margin: auto;  overflow: hidden;
+}
+.productList .container .item .product_image:hover img{
+	transform:scale(1.05);
+}
+
+.productList .container .product_image img {
+	width: 250px; height:250px;  object-fit: cover; max-width:100%;transition:all 0.2s linear;
+}
+
+.productList .container .product_image .wish{
+	 width: 40px; height:40px; position:absolute; top:190px; left:180px; border-radius: 100%; background-size:60%; background-color: #FFFDF6; opacity: 0.5;
+ transform: translate(0, 60px); 
+}
+
+.productList .container .product_image #wish img{
+	 width: 30px; height:30px; position:absolute; top:195px; left:185px; opacity: 0.8; 
+    transform: translate(0, 60px);
+}
+
+.productList .container .item .product_image:hover .wish {
+transform: translate(0, 0);transition: linear 0.3s; 
+}
+.productList .container .item .product_image:hover #wish img{
+transform: translate(0, 0); transition: linear 0.3s; 
+ 
+}
+
+.productList .container .item  .product_description {
+   height: 50px;
+   margin: auto;
+}
+
+.productList .container .product_description h2 a {
+   color: rgb(50, 50, 50);
+   margin: 8px 6px;
+   font-size: 18px;
+}
+
+.productList .container .product_description h3 a {
+   margin: 8px 6px;
+   font-size: 13px;
+}
+
+.productList .container .item .product_price {
+   padding: 1px 5px;
+}
+
+.productList .container .discount_rate {
+   color: rgb(255, 0, 0);
+   font-size: 16px;
+   padding: 3px 1px;
+   float: left;
+   font-weight: bold;
+}
+
+.productList .container .sales_price {
+   font-size: 16px;
+   padding: 3px 6px;
+   float: left;
+   font-weight: bold;
+}
+
+.productList .container .price {
+   color: rgb(150, 150, 150);
+   font-size: 14px;
+   clear: both;
+   text-decoration: line-through;
+   display: block;
+}
+
+
+/* 이용후기 */
+.review_title {
+   font-size:28px;
+   margin-bottom:10px;
+   margin-top: 100px;
+   text-align: center;
+}
+.review1 {
+   margin-bottom:30px;
+   font-size:16px;
+   text-align:center;
+   color:#999999;
+}
+.review1:hover {
+   color:#F9C200;
+}
+
+.section-3>.section-3_title {
+   font-size: 25px;
+   text-align: center;
+   margin-top: 30px;
+   margin-bottom: 30px;
+}
+
+.section-3_review {
+   display: flex;
+   justify-content: space-between;
+}
+
+/* 이용후기 슬라이드 */
+a {
+  text-decoration:none;
+  color:inherit;
+}
+body {
+  font-size: 14px;
+  color: #000;
+  margin: 0;
+  padding: 0;
+}
+
+.swiper {
+  width: 100%;
+  height: 220px;
+}
+
+
+body .swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #dfdfdf;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiper-slide img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+body .con1 .swiper-pagination {
+  position: relative;
+  top: 20px;
+}
+
+body .con1 .swiper-button-prev,
+body .con1 .swiper-button-next {
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  background-color: white;
+  border: 1px solid #ddd;
+  opacity:0.5;
+}
+
+body .con1 .swiper-button-prev:hover,
+body .con1 .swiper-button-next:hover {
+  background-color:#ccc;
+  transition: 0.1s;
+}
+
+body .con1 .swiper-button-prev:after,
+body .con1 .swiper-button-next:after {
+  font-size: 20px;
+  color: black;
+}

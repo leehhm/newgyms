@@ -1,0 +1,102 @@
+
+/* searchProduct */
+
+#myWishList {
+	width:1200px; padding:10px; 
+}
+
+#myWishList h1 {
+  margin:20px; text-align:center;
+}
+
+#myWishList .wish_list {
+  border-top:solid 1px rgb(150,150,150); border-bottom:solid 1px rgb(150,150,150);width:1200px; margin:auto;
+}
+
+#myWishList .wish_list td:first-child {
+  padding:5px; 
+}
+
+#myWishList .wish_list td:nth-child(2) {
+  width:160px; padding:10px; 
+}
+
+#myWishList .wish_list td:nth-child(3) {
+  padding:10px; 
+}
+
+#myWishList .wish_list td:nth-child(2) img {
+  width:130px;height:130px; margin:auto;
+}
+
+#myWishList .wish_list .wish_title {
+	font-weight:bold; margin-bottom:10px;
+}
+
+#myWishList .wish_list .discount_rate {
+	color: rgb(255, 0, 0);  font-weight:bold;	
+}
+
+#myWishList .wish_list .product_price {
+	color:rgb(150,150,150); text-decoration: line-through;
+}
+
+#myWishList .wish_list .product_sales_price {
+  text-align:center; width:200px; 
+}
+
+
+#myWishList .wish_list .sel_btn {
+  width:150px; font-size:14px; text-align:center; 
+}
+
+#myWishList .wish_list .add_cart_btn {
+  float:left; width:110px; margin:5px;
+	border:1px solid  #0F0573; padding:8px; border-radius:8px; background:#0F0573; color: white;
+}
+
+
+#myWishList .wish_list .del_wish_btn {
+	float:left; width:110px; margin:5px;
+	border:1px solid  #0F0573; padding:8px; border-radius:8px; color: #0F0573;
+}
+
+#myWishList .order_button {
+  background-color:#0F0573;color:white; width:150px; padding:10px 20px; margin:20px; font-size:16px; border: 2px solid #0F0573;
+}
+
+#myWishList .back_button {
+  background-color:white;color:#0F0573; width:150px; padding:10px 20px; margin:20px; font-size:16px; border: 2px solid #0F0573; font-weight:bold;
+}
+
+
+#myWishList #cart_popup {
+/* 	
+	justify-content: center;
+	align-items: center;
+	*/
+	position: fixed; left:800px; top:300px; 
+	
+	height:300px;width:400px; border:1px solid rgb(150,150,150); background:white; padding: 30px 100px;
+}
+
+#myWishList #cart_popup .x_button {
+	padding-left:250px;
+}
+
+#myWishList #cart_popup h6 {
+	font-size:16px; padding:20px;text-align:center;	
+}
+
+#myWishList #cart_popup p {
+	font-size:14px; padding:10px 0;
+}
+
+#myWishList #cart_popup select {
+	width:220px; padding:5px;
+}
+
+#myWishList #cart_popup .add_button {
+	display:block; text-align:center;
+	background-color:rgb(100,100,100);color:white;  width:110px; padding:10px 20px; margin:40px auto; 
+}

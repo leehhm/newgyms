@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+	<definition name="/owner/product/ownerProductList" extends="baseLayout">
+       <put-attribute name="title" value="사업자 상품 관리 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/owner/product/ownerProductList.jsp" />
+    </definition>
+    
+    <definition name="/owner/product/addProductForm" extends="baseLayout">
+       <put-attribute name="title" value="새 상품 추가 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/owner/product/addProductForm.jsp" />
+    </definition>
+    
+    <definition name="/owner/product/modProductForm" extends="baseLayout">
+       <put-attribute name="title" value="상품 수정 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/owner/product/modProductForm.jsp" />
+    </definition>
+    
+    
+</tiles-definitions>

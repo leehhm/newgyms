@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.wish">
+
+	<resultMap id="wishResult" type="WishVO">
+		<result property="wish_id" column="wish_id" />
+		<result property="member_id" column="member_id" />
+		<result property="product_id" column="product_id" />
+	</resultMap>
+
+	<resultMap id="productResult" type="ProductVO">
+		<result property="product_id" column="product_id" />
+		<result property="product_sort" column="product_sort" />
+		<result property="member_id" column="member_id" />
+		<result property="center_name" column="center_name" />
+		<result property="product_name" column="product_name" />
+		<result property="product_main_image" column="product_main_image" />
+		<result property="product_program_details" column="product_program_details" />
+		<result property="product_price_details" column="product_price_details" />
+		<result property="product_facility_details" column="product_facility_details" />
+		<result property="product_location_details" column="product_location_details" />		
+		<result property="product_price" column="product_price" />
+		<result property="product_sales_price" column="product_sales_price" />
+		<result property="product_point" column="product_point" />
+		<result property="product_entered_date" column="product_entered_date" />		
+		<result property="product_state" column="product_state" />
+		<result property="product_intro" column="product_intro" />
+		<result property="product_refund_1" column="product_refund_1" />
+		<result property="product_refund_2" column="product_refund_2" />
+		
+	</resultMap>	
+
+
+	<select id="selectWishList"  parameterType="wishVO"  resultMap="wishResult"   >
+       <![CDATA[
+      select * from t_wish
+      where member_id=#{member_id} 
+      ]]>
+   </select>
+   
+	<select id="selectProductList" resultMap="productResult" parameterType="java.util.Map">
+      <![CDATA[
+          select p.*,w.wish_entered_date from t_product p, t_wish w
+          where p.product_id=w.product_id
+           and p.product_id in
+      ]]>
+		<foreach item="item" collection="list" open="(" separator="," close=")">
+			#{item.product_id}
+		</foreach>
+		group by p.product_id
+		order by w.wish_entered_date 
+	</select>
+
+	<insert id="insertWishList"  parameterType="wishVO"  >
+     <![CDATA[
+			insert into t_wish (member_id, product_id)
+			value(#{member_id}, #{product_id})
+		]]>
+	</insert>
+
+	<select id="selectCountInWish" resultType="String" parameterType="wishVO">
+       <![CDATA[
+          select case count(*) when 0 then 'false' else 'true' end 
+          from t_wish
+         where product_id=#{product_id}
+           and member_id=#{member_id} 
+       ]]>
+	</select>
+	
+	<select id="selectWiShId" resultType="int" parameterType="wishVO">
+       <![CDATA[
+          select wish_id 
+          from t_wish
+         where product_id=#{product_id}
+           and member_id=#{member_id} 
+       ]]>
+	</select>
+	
+	<delete id="deleteEachWishProduct" parameterType="int">
+	    <![CDATA[
+	      delete from t_wish
+	      where wish_id=#{wish_id}
+    	]]>
+	</delete>
+	
+	<delete id="deleteWishProduct" parameterType="java.util.Map">
+	    <![CDATA[
+			delete from t_wish
+	   	   where wish_id in 
+		]]>
+		<foreach item="item" collection="wish_id_list" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</delete> 
+	
+</mapper> 

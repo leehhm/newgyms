@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+      <definition name="/review/reviewList" extends="baseLayout">
+         <put-attribute name="title" value="이용후기 목록" />
+         <put-attribute name="body" value="/WEB-INF/views/review/reviewList.jsp" />
+      </definition>
+      
+ 
+<!-- 
+	  <definition name="/review/viewReview" extends="baseLayout">
+         <put-attribute name="title" value="이용후기 상세페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/review/viewReview.jsp" />
+      </definition>  
+ -->
+</tiles-definitions>

@@ -1,0 +1,311 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="mapper.order">
+
+  <resultMap id="orderProductResult" type="orderVO">
+      <result property="order_seq_num" column="order_seq_num" />
+      <result property="order_id" column="order_id" />
+      <result property="member_id" column="member_id" />
+      <result property="product_id" column="product_id" />
+      <result property="center_name" column="center_name" />
+      <result property="product_name" column="product_name" />
+      <result property="product_main_image" column="product_main_image" />
+      <result property="product_price" column="product_price" />
+      <result property="product_sales_price" column="product_sales_price" />
+      <result property="product_point" column="product_point" />
+      <result property="total_price" column="total_price" />
+      
+      <result property="orderer_name" column="orderer_name" />
+      <result property="orderer_hp1" column="orderer_hp1" />
+      <result property="orderer_hp2" column="orderer_hp2" />
+      <result property="orderer_hp3" column="orderer_hp3" />
+      <result property="nonmember_pw" column="nonmember_pw" />
+      
+      
+      <result property="receiver_name" column="receiver_name" />
+      <result property="receiver_hp1" column="receiver_hp1" />
+      <result property="receiver_hp2" column="receiver_hp2" />
+      <result property="receiver_hp3" column="receiver_hp3" />
+      
+      <result property="pay_method" column="pay_method" />
+      <result property="card_com_name" column="card_com_name" />
+      <result property="card_pay_month" column="card_pay_month" />
+      <result property="order_state" column="order_state" />
+      <result property="pay_order_time" column="pay_order_time" />
+   </resultMap>
+   
+   <resultMap id="productResult" type="ProductVO">
+		<result property="product_id" column="product_id" />
+		<result property="product_sort" column="product_sort" />
+		<result property="member_id" column="member_id" />
+		<result property="center_name" column="center_name" />
+		<result property="product_name" column="product_name" />
+		<result property="product_main_image" column="product_main_image" />
+		<result property="product_program_details" column="product_program_details" />
+		<result property="product_price_details" column="product_price_details" />
+		<result property="product_facility_details" column="product_facility_details" />
+		<result property="product_location_details" column="product_location_details" />		
+		<result property="product_price" column="product_price" />
+		<result property="product_sales_price" column="product_sales_price" />
+		<result property="product_point" column="product_point" />
+		<result property="product_entered_date" column="product_entered_date" />		
+		<result property="product_state" column="product_state" />
+		<result property="product_intro" column="product_intro" />
+		<result property="product_refund_1" column="product_refund_1" />
+		<result property="product_refund_2" column="product_refund_2" />
+	</resultMap>	
+
+	<resultMap id="productOptResult" type="ProductOptVO">
+	   <result property="product_id" column="product_id" />
+	   <result property="option_id" column="option_id" />
+	   <result property="product_option_name" column="product_option_name" />
+	   <result property="product_option_price" column="product_option_price" />
+	</resultMap>
+
+	<resultMap id="imageResult" type="ProductImageVO">
+	   <result property="product_id" column="product_id" />
+	   <result property="fileName" column="fileName" />
+	   <result property="reg_id" column="reg_id" />
+	   <result property="image_id" column="image_id" />
+	   <result property="fileType" column="fileType" />
+	</resultMap>
+   
+   <!-- 환불/취소 신청 -->
+	<resultMap id="refundResult" type="refundVO">
+		<result property="refund_id" column="refund_id" />
+		<result property="order_seq_num" column="order_seq_num" />
+		<result property="refund_price" column="refund_price" />
+		<result property="order_state" column="order_state" />
+		<result property="account_holder" column="account_holder" />
+		<result property="account_bank" column="account_bank" />
+		<result property="account_number" column="account_number" />
+		<result property="cancel_reason" column="cancel_reason" />
+	</resultMap>
+	
+	
+	
+	<!-- 보유한 적립금 -->
+	<select id="orderPoint" parameterType="String" resultType="String">
+	<![CDATA[
+           SELECT (SELECT SUM(case when point_state='적립' then point_price ELSE 0 END))- (SELECT SUM(case when point_state='사용' then point_price ELSE 0 END)) AS now
+         FROM t_point
+         WHERE member_id=#{member_id}
+         ORDER BY point_id desc
+	      ]]>
+	</select>
+
+	<select id="selectOrderProductList" resultMap="orderProductResult" parameterType="java.util.Map">
+	    <![CDATA[
+	    
+  			SELECT c.*, m.center_name, p.product_name, p.product_main_image, p.product_price, p.product_sales_price, p.product_point, o.product_option_name, o.product_option_price from t_cart c , t_member m, t_product p, t_product_option o
+	   	    WHERE  c.product_id = p.product_id AND c.option_id = o.option_id AND p.member_id = m.member_id
+			AND cart_id IN 
+		]]>
+		<foreach item="cart_id" collection="cart_id_list" open="(" separator="," close=")">
+			#{cart_id}
+		</foreach>
+	</select> 
+
+	<!-- 회원 주문 -->
+	<insert id="insertNewOrder" parameterType="orderVO">
+    <![CDATA[
+		insert into t_order(order_seq_num,
+		                    order_id,
+							member_id,
+							center_name,
+							product_id,
+							product_main_image,
+							product_name,
+							product_option_name,
+							product_option_price,
+							product_price,
+							product_sales_price,
+							total_price,
+							point_price,
+							new_point,
+							orderer_name,
+							orderer_hp1,
+							orderer_hp2,
+							orderer_hp3,
+							receiver_name,
+							receiver_hp1,
+				            receiver_hp2,
+				            receiver_hp3,
+					        pay_method,
+					        card_com_name,
+					        card_pay_month,
+					        order_state)
+						     values(#{order_seq_num},
+						            #{order_id},
+								    #{member_id},
+								    #{center_name},
+								    #{product_id},
+								    #{product_main_image},
+								    #{product_name},
+								    #{product_option_name},
+								    #{product_option_price},
+								    #{product_price},
+								    #{product_sales_price},
+								    #{total_price},
+								    #{point_price},
+								    #{new_point},
+								    #{orderer_name},
+								    #{orderer_hp1},
+								    #{orderer_hp2},
+								    #{orderer_hp3},
+								    #{receiver_name},
+								    #{receiver_hp1},
+				                    #{receiver_hp2},
+				                    #{receiver_hp3},
+					                #{pay_method},
+					                #{card_com_name},
+					                #{card_pay_month},
+					                #{order_state})
+    	]]>
+	</insert>
+	
+	<!-- 비회원 주문 -->
+	<insert id="insertNewNonMemOrder" parameterType="orderVO">
+    <![CDATA[
+		insert into t_order(order_seq_num,
+		                    order_id,
+		                    member_id,
+							nonmember_pw,
+							center_name,
+							product_id,
+							product_main_image,
+							product_name,
+							product_option_name,
+							product_option_price,
+							product_price,
+							product_sales_price,
+							total_price,
+							orderer_name,
+							orderer_hp1,
+							orderer_hp2,
+							orderer_hp3,
+							receiver_name,
+							receiver_hp1,
+				            receiver_hp2,
+				            receiver_hp3,
+					        pay_method,
+					        card_com_name,
+					        card_pay_month,
+					        order_state)
+						     values(#{order_seq_num},
+						            #{order_id},
+						            #{member_id},
+								    #{nonmember_pw},
+								    #{center_name},
+								    #{product_id},
+								    #{product_main_image},
+								    #{product_name},
+								    #{product_option_name},
+								    #{product_option_price},
+								    #{product_price},
+								    #{product_sales_price},
+								    #{total_price},
+								    #{orderer_name},
+								    #{orderer_hp1},
+								    #{orderer_hp2},
+								    #{orderer_hp3},
+								    #{receiver_name},
+								    #{receiver_hp1},
+				                    #{receiver_hp2},
+				                    #{receiver_hp3},
+					                #{pay_method},
+					                #{card_com_name},
+					                #{card_pay_month},
+					                #{order_state})
+    	]]>
+	</insert>
+
+	<select id="selectOrderID" resultType="int">
+	    <![CDATA[
+		    select MAX(order_id) from t_order
+    	]]>
+	</select>
+	
+	
+	<!-- 구매완료한 상품 장바구니에서 삭제 -->
+	<delete id="deleteProductsFromCart" parameterType="orderVO">
+	  	delete from t_cart
+	  	where product_id=#{product_id} and member_id=#{member_id}
+	</delete>
+	
+	<!-- 비회원 주문내역 조회 -->
+	<select id="selectOrderInfo" parameterType="java.util.Map" resultType="String">
+      	select 
+      		CASE WHEN count(*) >= 1 THEN 'true'
+      		ELSE 'false' END AS result
+      	from t_order
+      	where order_id=#{order_id} and nonmember_pw=#{nonmember_pw} 
+   </select>
+	
+	<!-- 비회원 주문 상세보기 -->
+	<select id="selectNonMemberOrderDetail" resultMap="orderProductResult" parameterType="String">
+       <![CDATA[
+         select a.*, b.product_id, b.product_main_image, SUM(a.product_sales_price+a.product_option_price) over (PARTITION BY order_id) AS total_price
+         from t_order a, t_product b
+            where a.order_id=#{order_id} and a.product_id = b.product_id
+            order by order_seq_num desc
+      ]]>
+	</select>
+	
+	<!-- 비회원 주문취소 페이지 -->
+	<select id="selectNonMemberOrderCancel" resultMap="orderProductResult" parameterType="java.util.Map">
+       <![CDATA[
+         select a.*, b.product_id, b.product_main_image, SUM(a.product_sales_price+a.product_option_price) over (PARTITION BY order_id) AS refund_price
+         from t_order a, t_product b
+         where a.product_id = b.product_id 
+            and order_seq_num in
+      ]]>
+		<foreach item="item" collection="list" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+		order by order_seq_num desc
+	</select>
+	
+	<!-- 환불 정보 입력 -->
+	<insert id="refundNonMemberOrder" parameterType="java.util.Map">
+   <![CDATA[
+      insert into t_refund(refund_id,
+      				 order_seq_num,
+                     refund_price,
+                     order_state,
+                     account_holder,
+                     account_bank,
+                     account_number,
+                     cancel_reason)
+                values(#{refund_id},
+                	  #{order_seq_num},
+                      #{refund_price},
+                      #{order_state},
+                      #{account_holder},
+                      #{account_bank},
+                      #{account_number},
+                      #{cancel_reason})
+   ]]>
+	</insert>
+
+	<!-- 환불 시 결제 상태 업데이트 -->
+	<update id="updateOrderState" parameterType="java.util.Map">
+    <![CDATA[
+            update t_order
+            set order_state=#{order_state} 
+            where order_seq_num=#{order_seq_num}
+         ]]>
+	</update>
+	
+	<!-- 환불번호 부여 -->
+	<select id="selectNewRefundId" resultType="int">
+		<![CDATA[
+			select ifnull(max(refund_id), 0) + 1 from t_refund
+		]]>
+	</select>
+	
+</mapper>

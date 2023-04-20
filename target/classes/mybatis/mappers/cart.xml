@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.cart">
+	<!-- 리절트 맵 정의 -->
+	<resultMap id="cartResult" type="CartVO">
+		<result property="cart_id" column="cart_id" />
+		<result property="product_id" column="product_id" />
+		<result property="member_id" column="member_id" />
+		<result property="option_id" column="option_id" />
+		<result property="cart_entered_date" column="cart_entered_date" />
+	</resultMap>
+	
+	<resultMap id="productResult" type="ProductVO">
+		<result property="product_id" column="product_id" />
+		<result property="product_sort" column="product_sort" />
+		<result property="member_id" column="member_id" />
+		<result property="center_name" column="center_name" />
+		<result property="product_name" column="product_name" />
+		<result property="product_main_image" column="product_main_image" />
+		<result property="product_program_details" column="product_program_details" />
+		<result property="product_price_details" column="product_price_details" />
+		<result property="product_facility_details" column="product_facility_details" />
+		<result property="product_location_details" column="product_location_details" />		
+		<result property="product_price" column="product_price" />
+		<result property="product_sales_price" column="product_sales_price" />
+		<result property="product_point" column="product_point" />
+		<result property="product_entered_date" column="product_entered_date" />		
+		<result property="product_state" column="product_state" />
+		<result property="product_intro" column="product_intro" />
+		<result property="product_refund_1" column="product_refund_1" />
+		<result property="product_refund_2" column="product_refund_2" />
+		
+	</resultMap>	
+
+	<select id="selectCartList"  resultMap="cartResult"  parameterType="String"  >
+       <![CDATA[
+      select c.*, o.product_option_name, o.product_option_price from t_cart c, t_product_option o
+      where member_id=#{member_id} and c.option_id=o.option_id
+      ]]>
+   </select>
+
+	<select id="selectProductList" resultMap="productResult" parameterType="java.util.Map">
+      <![CDATA[
+          select p.*,c.cart_entered_date, m.center_name from t_product p, t_cart c, t_member m
+          where p.product_id=c.product_id and p.member_id = m.member_id
+           and p.product_id in
+      ]]>
+		<foreach item="myCartList" collection="list" open="(" separator="," close=")">
+			#{myCartList.product_id}
+		</foreach>
+		group by p.product_id
+		order by c.cart_entered_date 
+	</select>
+	
+	<select id="selectCountInCart" resultType="String" parameterType="cartVO">
+       <![CDATA[
+          select case count(*) when 0 then 'false' else 'true' end 
+          from t_cart
+         where product_id=#{product_id}
+           and member_id=#{member_id} 
+
+       ]]>
+	</select>
+
+	<select id="selectMaxCartId" resultType="int">
+	    <![CDATA[
+			select IFNULL(max(cart_id), 0) + 1 from t_cart 
+    	]]>
+	</select>
+	
+	<insert id="insertProductInCart" parameterType="cartVO">
+	    <![CDATA[
+		    	insert into t_cart(cart_id, 
+		    						product_id, 
+	    							member_id, 
+	    							option_id)
+		        				 values(#{cart_id},
+    							        #{product_id},
+    							        #{member_id},
+    							        #{option_id})
+    	]]>
+	</insert>
+
+	<update id="updateCartProductOption" parameterType="cartVO">
+	    <![CDATA[
+			update t_cart
+			       set option_id=#{option_id}
+			       
+		 	       where member_id=#{member_id}
+			        and product_id=#{product_id}
+    	]]>
+	</update>
+	
+	<delete id="deleteEachCartProduct" parameterType="int">
+	    <![CDATA[
+	      delete from t_cart
+	      where cart_id=#{cart_id}
+    	]]>
+	</delete>
+	
+	<delete id="deleteSelectCartProduct" parameterType="java.util.Map">
+	    <![CDATA[
+			delete from t_cart
+	   	   where cart_id in 
+		]]>
+		<foreach item="cart_id" collection="cart_id_list" open="(" separator="," close=")">
+			#{cart_id}
+		</foreach>
+	</delete> 
+
+</mapper>

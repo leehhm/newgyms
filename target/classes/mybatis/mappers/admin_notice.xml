@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.admin_notice">
+	<resultMap id="noticesResult" type="noticeVO">
+		<result property="notice_no" column="notice_no" />
+		<result property="notice_title" column="notice_title" />
+		<result property="notice_content" column="notice_content" />
+		<result property="notice_write_date" column="notice_write_date" />
+		<result property="notice_image" column="notice_image" />
+	</resultMap>
+	
+	<resultMap id="imgResult" type="imageVO">
+		<result property="imageFileNO" column="imageFileNO" />
+		<result property="notice_no" column="notice_no" />
+		<result property="notice_image" column="notice_image" />
+	</resultMap>
+	
+	<select id="selectAllNoticesList" resultMap="noticesResult">
+		<![CDATA[
+			select *
+			from t_notice
+			order by notice_write_date desc
+		]]>
+	</select>
+	
+	<delete id="deleteNotice" parameterType="int">
+		<![CDATA[
+			delete from t_notice
+			where notice_no=#{notice_no}
+		]]>
+	</delete>
+	
+</mapper>

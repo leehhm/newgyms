@@ -1,0 +1,199 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.owner_main">
+
+   <!-- 회원정보 수정 -->
+   <resultMap id="memberResult" type="MemberVO">
+      <result property="member_id" column="member_id" />
+      <result property="member_pw" column="member_pw" />
+      <result property="member_name" column="member_name" />
+      <result property="member_gender" column="member_gender" />
+      <result property="member_rrn1" column="member_rrn1" />
+      <result property="member_rrn2" column="member_rrn2" />
+
+      <result property="member_birth_y" column="member_birth_y" />
+      <result property="member_birth_m" column="member_birth_m" />
+      <result property="member_birth_d" column="member_birth_d" />
+
+      <result property="hp1" column="hp1" />
+      <result property="hp2" column="hp2" />
+      <result property="hp3" column="hp3" />
+      <result property="smssts_yn" column="smssts_yn" />
+      <result property="email1" column="email1" />
+      <result property="email2" column="email2" />
+      <result property="emailsts_yn" column="emailsts_yn" />
+
+      <result property="zipcode" column="zipcode" />
+      <result property="road_address" column="road_address" />
+      <result property="jibun_address" column="jibun_address" />
+      <result property="namuji_address" column="namuji_address" />
+      <result property="join_date" column="join_date" />
+      <result property="join_type" column="join_type" />
+
+      <result property="center_name" column="center_name" />
+      <result property="owner_eid" column="owner_eid" />
+      <result property="owner_tel1" column="owner_tel1" />
+      <result property="owner_tel2" column="owner_tel2" />
+      <result property="owner_tel3" column="owner_tel3" />
+   </resultMap>
+
+   <resultMap id="ownerPageResult" type="OwnerPageVO">
+      <result property="member_id" column="member_id" />
+      <result property="intro_introduce" column="intro_introduce"/>
+      <result property="intro_notice" column="intro_notice"/>
+      <result property="intro_time" column="intro_time"/>
+      <result property="intro_program" column="intro_program"/>
+      <result property="intro_service" column="intro_service"/>
+   </resultMap>
+   
+   <resultMap id="productResult" type="ProductVO">
+		<result property="product_id" column="product_id" />
+		<result property="product_sort" column="product_sort" />
+		<result property="member_id" column="member_id" />
+		<result property="center_name" column="center_name" />
+		<result property="product_name" column="product_name" />
+		<result property="product_main_image" column="product_main_image" />
+		<result property="product_program_details" column="product_program_details" />
+		<result property="product_price_details" column="product_price_details" />
+		<result property="product_facility_details" column="product_facility_details" />
+		<result property="product_location_details" column="product_location_details" />		
+		<result property="product_price" column="product_price" />
+		<result property="product_sales_price" column="product_sales_price" />
+		<result property="product_point" column="product_point" />
+		<result property="product_entered_date" column="product_entered_date" />		
+		<result property="product_state" column="product_state" />
+		<result property="product_intro" column="product_intro" />
+		<result property="product_refund_1" column="product_refund_1" />
+		<result property="product_refund_2" column="product_refund_2" />
+	</resultMap>
+   
+   
+   <!-- 사업장 소개/관리 페이지  -->
+   <select id="selectCenterProductList" resultMap="productResult" parameterType = "String" >
+      <![CDATA[
+			select *, (select center_name from t_member WHERE t_product.member_id = t_member.member_id) as center_name from t_product
+			where member_id=#{member_id}		
+			order by product_entered_date desc
+		]]>
+   </select>
+   
+   <select id="selectOwnerPageIntroView" resultMap="ownerPageResult" parameterType = "String" >
+      <![CDATA[
+         select * from t_owner_intro 
+         where member_id=#{member_id}
+         order by member_id
+       ]]>
+   </select>
+   
+   <select id="selectOwnerPageIntroInfo" resultMap="memberResult" parameterType = "String" >
+      <![CDATA[
+          select * from t_member 
+         where member_id=#{member_id}
+         order by member_id
+       ]]>
+   </select>
+   
+   <!-- 사업장 관리 페이지 수정 -->
+   <update id="updateOwnerPage" parameterType="java.util.Map" >
+   		update t_owner_intro
+   		set
+   			intro_introduce=#{intro_introduce},
+   			intro_notice=#{intro_notice},
+   			intro_time=#{intro_time},
+   			intro_program=#{intro_program},
+   			intro_service=#{intro_service}
+   		where 
+   		member_id=#{member_id}
+   </update>
+   
+   <!-- 사업자페이지 계정 비밀번호 확인 -->
+   <select id="ownerPageDetail" resultType="memberVO" parameterType="java.util.Map">
+       <![CDATA[
+         select * from t_member 
+          where member_id=#{member_id}
+          and member_pw=#{member_pw}
+      ]]>
+   </select>
+   
+   <!-- 사업자 회원정보 수정 -->
+   <update id="updateMyInfo" parameterType="java.util.Map">
+      update t_member
+      <set>
+         <if test=" center_name!='' and center_name!=null">
+            center_name=#{center_name},
+         </if>
+         <if test=" member_pw!='' and member_pw!=null">
+            member_pw=#{member_pw},
+         </if>
+         <if test=" zipcode!='' and zipcode!=null">
+            zipcode=#{zipcode},
+         </if>
+         <if test=" road_address!='' and road_address!=null">
+            road_address=#{road_address},
+         </if>
+         <if test=" jibun_address!='' and jibun_address!=null">
+            jibun_address=#{jibun_address},
+         </if>
+         <if test=" namuji_address!='' and namuji_address!=null">
+            namuji_address=#{namuji_address},
+         </if>
+         
+         <if test=" owner_tel1!='' and owner_tel1!=null">
+            owner_tel1=#{owner_tel1},
+         </if>
+         <if test=" owner_tel2!='' and owner_tel2!=null">
+            owner_tel2=#{owner_tel2},
+         </if>
+         <if test=" owner_tel3!='' and owner_tel3!=null">
+            owner_tel3=#{owner_tel3},
+         </if>
+         <if test=" hp1!='' and hp1!=null">
+            hp1=#{hp1},
+         </if>
+         <if test=" hp2!='' and hp2!=null">
+            hp2=#{hp2},
+         </if>
+         <if test=" hp3!='' and hp3!=null">
+            hp3=#{hp3},
+         </if>
+         <if test=" smssts_yn!='' and smssts_yn!=null">
+            smssts_yn=#{smssts_yn},
+         </if>
+         <if test=" email1!='' and email1!=null">
+            email1=#{email1},
+         </if>
+         <if test=" email2!='' and email2!=null">
+            email2=#{email2},
+         </if>
+         <if test=" emailsts_yn!='' and emailsts_yn!=null">
+            emailsts_yn=#{emailsts_yn},
+         </if>
+         <if test=" member_birth_y!='' and member_birth_y!=null">
+            member_birth_y=#{member_birth_y},
+         </if>
+         <if test=" member_birth_m!='' and member_birth_m!=null">
+            member_birth_m=#{member_birth_m},
+         </if>
+         <if test=" member_birth_d!='' and member_birth_d!=null">
+            member_birth_d=#{member_birth_d},
+         </if>
+      </set>
+      where
+      member_id=#{member_id}
+   </update>
+   
+   <!-- 사업자 회원탈퇴 -->
+   <delete id="deleteMember" parameterType="java.util.Map">
+      <![CDATA[
+         update  t_member
+         set del_yn = 'Y'
+         where member_id=#{member_id} and member_pw=#{member_pw}
+        ]]>
+   </delete>
+   
+   
+   
+</mapper>

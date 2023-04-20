@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+       
+<tiles-definitions>
+    <definition name="/wish/myWishList" extends="baseLayout">
+       <put-attribute name="title" value="찜 목록" />
+       <put-attribute name="body" value="/WEB-INF/views/wish/myWishList.jsp" />
+    </definition>  
+    
+</tiles-definitions>
+
+

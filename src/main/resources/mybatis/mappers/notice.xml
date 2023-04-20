@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="mapper.notice">
+	<resultMap id="noticesResult" type="noticeVO">
+		<result property="notice_no" column="notice_no" />
+		<result property="notice_title" column="notice_title" />
+		<result property="notice_content" column="notice_content" />
+		<result property="notice_write_date" column="notice_write_date" />
+		<result property="notice_image" column="notice_image" />
+	</resultMap>
+	
+	<resultMap id="imgResult" type="imageVO">
+		<result property="imageFileNO" column="imageFileNO" />
+		<result property="notice_no" column="notice_no" />
+		<result property="notice_image" column="notice_image" />
+	</resultMap>
+	
+	<select id="selectAllNoticesList" resultMap="noticesResult">
+		<![CDATA[
+			select *
+			from t_notice
+			order by notice_write_date desc
+		]]>
+	</select>
+	
+	<insert id="insertNewNotice" parameterType="java.util.Map">
+		<![CDATA[
+			insert into t_notice(notice_no, notice_title, notice_content, notice_image, member_id)
+			values(#{notice_no}, #{notice_title}, #{notice_content}, #{notice_image}, #{member_id})
+		]]>
+	</insert>
+	
+	<select id="selectNewNoticeNO" resultType="int">
+		<![CDATA[
+			select ifnull(max(notice_no), 0) + 1 from t_notice
+		]]>
+	</select>
+	
+	<select id="viewNotice" resultType="noticeVO" parameterType="int">
+		<![CDATA[
+			select * 
+			from t_notice 
+			where notice_no=#{notice_no}
+		]]>
+	</select>
+	
+	<update id="updateNotice" parameterType="java.util.Map">
+		<![CDATA[
+			update t_notice
+			set notice_title=#{notice_title}, notice_content=#{notice_content}, notice_image=#{notice_image}
+			where notice_no = #{notice_no}
+		]]>
+	</update>
+	
+	<delete id="deleteNotice" parameterType="int">
+		<![CDATA[
+			delete from t_notice
+			where notice_no=#{notice_no}
+		]]>
+	</delete>
+	
+	<select id="selectNewImageFileNO" resultType="int">
+		<![CDATA[
+			select ifnull(max(imageFileNO),0) from t_notice
+		]]>
+	</select>
+	
+	<select id="selectImageFileList" resultMap="imgResult" parameterType="int">
+		<![CDATA[
+			select * from t_notice
+			where notice_no=#{notice_no}
+		]]>
+	</select>
+	
+</mapper>

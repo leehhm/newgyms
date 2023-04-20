@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.product">
+
+	<resultMap id="productResult" type="ProductVO">
+		<result property="product_id" column="product_id" />
+		<result property="product_sort" column="product_sort" />
+		<result property="member_id" column="member_id" />
+		<result property="center_name" column="center_name" />
+		<result property="product_name" column="product_name" />
+		<result property="product_main_image" column="product_main_image" />
+		<result property="product_program_details" column="product_program_details" />
+		<result property="product_price_details" column="product_price_details" />
+		<result property="product_facility_details" column="product_facility_details" />
+		<result property="product_location_details" column="product_location_details" />		
+		<result property="product_price" column="product_price" />
+		<result property="product_sales_price" column="product_sales_price" />
+		<result property="product_point" column="product_point" />
+		<result property="product_entered_date" column="product_entered_date" />		
+		<result property="product_state" column="product_state" />
+		<result property="product_intro" column="product_intro" />
+		<result property="product_refund_1" column="product_refund_1" />
+		<result property="product_refund_2" column="product_refund_2" />
+	</resultMap>	
+
+	<resultMap id="productOptResult" type="ProductOptVO">
+	   <result property="product_id" column="product_id" />
+	   <result property="option_id" column="option_id" />
+	   <result property="product_option_name" column="product_option_name" />
+	   <result property="product_option_price" column="product_option_price" />
+	</resultMap>
+
+	<resultMap id="imageResult" type="ProductImageVO">
+	   <result property="image_id" column="image_id" />
+	   <result property="product_id" column="product_id" />
+	   <result property="fileName" column="fileName" />
+	   <result property="fileType" column="fileType" />
+	</resultMap>
+
+
+	<!-- 전체 카테고리, 지역별 조회 --> 	
+	<select id="selectAllProductList" resultMap="productResult" parameterType="String">
+     <![CDATA[
+			select t_product.*, t_member.center_name from t_product, t_member
+			where t_member.road_address like concat('%',#{address},'%')
+			and t_product.member_id=t_member.member_id
+			and t_product.product_state = '판매중'
+			order by t_product.product_entered_date desc
+		]]>
+	</select>	
+
+	<!-- 카테고리별, 지역별 조회 --> 	
+	<select id="selectProductList" resultMap="productResult"   parameterType="java.util.HashMap"  >
+     <![CDATA[
+			select t_product.*, t_member.center_name from t_product, t_member
+			where t_product.product_sort =#{product_sort} and t_member.road_address like concat('%',#{address},'%')
+			and t_product.member_id=t_member.member_id
+			and t_product.product_state = '판매중'			
+			order by t_product.product_entered_date desc
+		]]>
+	</select>	
+	
+	
+	<!-- 상품 정렬 --> 	
+	<select id="selectAllproductSortByPopular" resultMap="productResult"   parameterType="java.util.HashMap"  >
+	  <![CDATA[
+		select t_product.*, t_member.center_name, IFNULL((SELECT count(product_id) from t_order WHERE t_product.product_id = t_order.product_id), 0) as orderCnt
+		from t_product, t_member
+		where t_member.road_address like concat('%',#{address},'%')
+		and t_product.member_id=t_member.member_id
+		and t_product.product_state = '판매중'
+		order by orderCnt desc
+	  ]]>
+	</select>	
+	
+	<select id="selectAllproductSortByLowPrice" resultMap="productResult"   parameterType="java.util.HashMap"  >
+     <![CDATA[
+		select t_product.*, t_member.center_name from t_product, t_member
+		where t_member.road_address like concat('%',#{address},'%')
+		and t_product.member_id=t_member.member_id 
+		and t_product.product_state = '판매중'		
+		order by t_product.product_sales_price 
+		]]>
+	</select>	
+	
+	<select id="selectAllproductSortByHighPrice" resultMap="productResult"   parameterType="java.util.HashMap"  >
+     <![CDATA[
+		select t_product.*, t_member.center_name from t_product, t_member
+		where t_member.road_address like concat('%',#{address},'%')
+		and t_product.member_id=t_member.member_id 
+		and t_product.product_state = '판매중'
+		order by t_product.product_sales_price desc
+		]]>
+	</select>	
+	
+	<select id="selectproductSortByPopular" resultMap="productResult"   parameterType="java.util.HashMap"  >
+	  <![CDATA[
+		select t_product.*, t_member.center_name, IFNULL((SELECT count(product_id) from t_order WHERE t_product.product_id = t_order.product_id), 0) as orderCnt
+		from t_product, t_member
+		where t_product.product_sort =#{product_sort} and t_member.road_address like concat('%',#{address},'%')
+		and t_product.member_id=t_member.member_id
+		and t_product.product_state = '판매중'
+		order by orderCnt desc
+	  ]]>
+	</select>	
+	
+	<select id="selectproductSortByLowPrice" resultMap="productResult"   parameterType="java.util.HashMap"  >
+     <![CDATA[
+		select t_product.*, t_member.center_name from t_product, t_member
+		where t_product.product_sort =#{product_sort}  and t_member.road_address like concat('%',#{address},'%')
+		and t_product.member_id=t_member.member_id 
+		and t_product.product_state = '판매중'
+		order by t_product.product_sales_price 
+		]]>
+	</select>	
+	
+	<select id="selectproductSortByHighPrice" resultMap="productResult"   parameterType="java.util.HashMap"  >
+     <![CDATA[
+		select t_product.*, t_member.center_name from t_product, t_member
+		where t_product.product_sort =#{product_sort}  and t_member.road_address like concat('%',#{address},'%')
+		and t_product.member_id=t_member.member_id 
+		and t_product.product_state = '판매중'
+		order by t_product.product_sales_price desc
+		]]>
+	</select>	
+			
+			
+	<!-- 상품 검색 -->
+   <select id="selectProductBySearchWord" resultMap="productResult"   parameterType="String"  >
+     <![CDATA[
+		select DISTINCT t_product.*, t_member.center_name from t_product, t_member
+		where (t_product.product_name like concat('%',#{searchWord},'%') or t_member.center_name like concat('%',#{searchWord},'%')) 
+		and t_product.member_id = t_member.member_id
+		and t_product.product_state = '판매중'
+		order by t_product.product_entered_date desc
+		]]>
+	</select>	
+
+
+	<!-- 상품 상세검색 -->
+   <select id="selectProductByAll" resultMap="productResult"   parameterType="String"  >
+     <![CDATA[
+		select DISTINCT t_product.*, t_member.center_name from t_product, t_member
+		where (t_product.product_name like concat('%',#{searchWord},'%') or t_member.center_name like concat('%',#{searchWord},'%')) 
+		and t_product.member_id = t_member.member_id
+		and t_product.product_sales_price BETWEEN #{minPrice} AND #{maxPrice}
+		and t_product.product_state = '판매중'
+		order by t_product.product_entered_date desc
+	 ]]>
+	</select>	
+
+	
+   <select id="selectProductByProductName" resultMap="productResult"   parameterType="java.util.HashMap"  >
+    <![CDATA[
+		select DISTINCT t_product.*, t_member.center_name from t_product, t_member
+		where t_product.product_name like concat('%',#{searchWord},'%')
+		and t_product.member_id = t_member.member_id
+		and t_product.product_price BETWEEN #{minPrice} AND #{maxPrice}				
+		and t_product.product_state = '판매중'
+		order by t_product.product_entered_date desc
+	 ]]>
+	</select>
+		
+
+   <select id="selectProductByCenterName" resultMap="productResult"   parameterType="java.util.HashMap"  >
+    <![CDATA[   
+		select DISTINCT t_product.*, t_member.center_name from t_product, t_member
+		where t_member.center_name like concat('%',#{searchWord},'%')
+		and t_product.member_id = t_member.member_id
+		and t_product.product_price BETWEEN #{minPrice} AND #{maxPrice}				
+		and product_state = '판매중'
+		order by t_product.product_entered_date desc
+	 ]]>
+	</select>	
+	
+	<!-- 상품 상세페이지 -->
+	
+	<!-- 옵션 --> 		
+	<select id="selectProductOptionList" resultMap="productOptResult"   parameterType="String"  >
+	    <![CDATA[
+	    	select * from  t_product_option 
+	    	where product_id=#{product_id}
+	    	order by product_id asc, product_option_price asc
+    	]]>
+	</select>
+	
+	<!-- 프로그램 상세정보 --> 	
+	<select id="selectProductDetail" resultMap="productResult"   parameterType="String"  >
+	    <![CDATA[
+		    select * from t_product 
+			where product_id=#{product_id}
+			order by product_id
+    	]]>
+	</select>
+
+	<!-- 이미지 -->
+	<select id="selectProductDetailImage" resultMap="imageResult"   parameterType="String"  >
+	    <![CDATA[
+	    	select * from  t_product_detail_image 
+	    	where fileType='detail_image'
+			and product_id=#{product_id}
+    	]]>
+	</select>
+	
+	<select id="selectProductPriceImage" resultMap="imageResult"   parameterType="String"  >
+	    <![CDATA[
+	    	select * from  t_product_detail_image 
+	    	where fileType='price_image'
+			and product_id=#{product_id}
+   		]]>
+	</select>
+	
+	<select id="selectProductFacilityImage" resultMap="imageResult"   parameterType="String"  >
+	    <![CDATA[
+	    	select * from  t_product_detail_image 
+	    	where fileType='facility_image'
+			and product_id=#{product_id}
+	   	]]>
+	</select>
+
+
+</mapper> 

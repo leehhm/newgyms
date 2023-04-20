@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.admin_order">
+	<!-- 결제내역 조회 -->
+	<resultMap id="orderProductResult" type="orderVO">
+		<result property="order_seq_num" column="order_seq_num" />
+		<result property="order_id" column="order_id" />
+		<result property="member_id" column="member_id" />
+		<result property="product_id" column="product_id" />
+		<result property="orderer_name" column="orderer_name" />
+		<result property="orderer_hp1" column="orderer_hp1" />
+		<result property="orderer_hp2" column="orderer_hp2" />
+		<result property="orderer_hp3" column="orderer_hp3" />
+		<result property="nonmember_pw" column="nonmember_pw" />
+		<result property="center_name" column="center_name" />
+		<result property="product_name" column="product_name" />
+		<result property="product_main_image"
+			column="product_main_image" />
+		<result property="product_price" column="product_price" />
+		<result property="product_sales_price"
+			column="product_sales_price" />
+		<result property="goods_filename" column="goods_filename" />
+		<result property="receiver_name" column="receiver_name" />
+		<result property="receiver_hp1" column="receiver_hp1" />
+		<result property="receiver_hp2" column="receiver_hp2" />
+		<result property="receiver_hp3" column="receiver_hp3" />
+		<result property="pay_method" column="pay_method" />
+		<result property="card_com_name" column="card_com_name" />
+		<result property="card_pay_month" column="card_pay_month" />
+		<result property="pay_order_time" column="pay_order_time" />
+		<result property="order_state" column="order_state" />
+		<result property="option_id" column="option_id" />
+		<result property="option_name" column="option_name" />
+	</resultMap>
+
+	<!-- 환불/취소 신청 -->
+	<resultMap id="refundResult" type="refundVO">
+		<result property="refund_id" column="refund_id" />
+		<result property="order_seq_num" column="order_seq_num" />
+		<result property="refund_price" column="refund_price" />
+		<result property="order_state" column="order_state" />
+		<result property="account_holder" column="account_holder" />
+		<result property="account_bank" column="account_bank" />
+		<result property="account_number" column="account_number" />
+		<result property="cancel_reason" column="cancel_reason" />
+	</resultMap>
+	
+	<!-- 회원정보에 따른 대표 주문정보 조회 -->
+	<select id="selectAllOrderList" resultMap="orderProductResult"
+		parameterType="java.util.Map">
+       <![CDATA[
+         select *
+            FROM (
+            SELECT 
+            ROW_NUMBER() over(order by order_seq_num) AS rowNum,
+            	a.total_price,
+                a.order_seq_num,
+                a.member_id,
+               a.pay_order_time,
+              a.order_state,
+               a.order_id,
+              a.product_name,
+              a.product_sales_price,
+              a.product_price,
+              a.product_option_name,
+              a.product_option_price,
+                 b.product_id,
+                 b.product_main_image
+                from t_order a, t_product b
+                 WHERE a.product_id = b.product_id
+             GROUP BY a.order_id
+             )a
+          where rowNum BETWEEN (#{maxnum}-4) - (#{chapter}-1)*5 and (#{maxnum}) - (#{chapter}-1)*5
+             order by order_seq_num DESC
+      ]]>
+	</select>
+
+	<!-- 회원정보에 따른 주문정보 전체 조회 -->
+	<select id="selectOrderMember" resultMap="orderProductResult"
+		parameterType="java.util.Map">
+       <![CDATA[
+         SELECT *
+      FROM (
+            SELECT
+                a.order_seq_num,
+                a.member_id,
+               a.pay_order_time,
+              a.order_state,
+               a.order_id,
+              a.product_name,
+              a.product_sales_price,
+              a.product_price,
+              a.product_option_name,
+              a.product_option_price,
+                 b.product_id,
+                 b.product_main_image
+                from t_order a, t_product b
+                 WHERE a.product_id = b.product_id
+            )a
+      ]]>
+	</select>
+
+	<!-- 페이지네이션 -->
+	<select id="maxNumSelect" resultType="String"
+		parameterType="java.util.Map">
+       <![CDATA[
+             SELECT COUNT(*)
+         FROM(
+            SELECT 
+               a.order_seq_num,
+              b.product_main_image
+                from t_order a, t_product b
+                 WHERE a.product_id = b.product_id
+             GROUP BY a.order_id
+             )a
+      ]]>
+	</select>
+
+	<!-- 주문 회원 목록 조회 -->
+	<select id="orderMemberListSelect" resultType="String"
+		parameterType="java.util.Map">
+       <![CDATA[
+             SELECT COUNT(*)
+			 from t_order
+			 GROUP BY order_id
+			 ORDER BY order_seq_num DESC
+      ]]>
+	</select>
+
+	<!-- 주문 상세보기 페이지 -->
+	<select id="selectAdminOrderDetail" resultMap="orderProductResult"
+		parameterType="String">
+       <![CDATA[
+         select a.*, b.product_id, b.product_main_image
+         from t_order a, t_product b
+            where a.order_id=#{order_id} and a.product_id = b.product_id
+            order by order_seq_num desc
+      ]]>
+	</select>
+
+	
+	<!-- 상세페이지에서 환불 정보 -->
+	<select id="selectAdminRefundDetail" resultMap="refundResult" parameterType="String">
+       <![CDATA[
+         select *
+         from t_refund
+         where order_seq_num=#{order_seq_num}
+       ]]>
+	</select>
+	
+	
+	<!-- 주문취소 페이지 -->
+	<select id="selectAdminOrderCancel" resultMap="orderProductResult" parameterType="java.util.Map">
+       <![CDATA[
+         select *
+         from t_order
+         where order_seq_num in
+      ]]>
+		<foreach item="item" collection="list" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+		order by order_seq_num desc
+	</select>
+	
+	<!-- 환불완료 시 결제 상태 업데이트 -->
+	<update id="updateRefundState" parameterType="java.util.Map">
+    <![CDATA[
+            update t_refund
+            set order_state = "환불완료"
+            where order_seq_num=#{order_seq_num}
+         ]]>
+	</update>
+	
+	<update id="updateOrderState" parameterType="java.util.Map">
+    <![CDATA[
+            update t_order
+            set order_state = "환불완료"
+            where order_seq_num=#{order_seq_num}
+         ]]>
+	</update>
+</mapper>

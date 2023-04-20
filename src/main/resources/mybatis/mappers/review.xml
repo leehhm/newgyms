@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.review">
+
+	<resultMap id="reviewResult" type="ReviewVO">
+		<result property="review_no" column="review_no" />
+		<result property="order_id" column="order_id" />
+		<result property="member_id" column="member_id" />
+		<result property="center_name" column="center_name" />
+		<result property="product_id" column="product_id" />
+		<result property="product_name" column="product_name" />
+		<result property="product_main_image" column="product_main_image" />
+		<result property="product_option_name" column="product_option_name" />
+		<result property="product_option_price" column="product_option_price" />
+		<result property="review_main_image" column="review_main_image" />
+		<result property="review_title" column="review_title" />
+		<result property="review_contents" column="review_contents" />
+		<result property="review_image" column="review_image" />
+		<result property="review_score" column="review_score" />
+		<result property="review_write_date" column="review_wirte_date" />
+	</resultMap>
+	
+	<resultMap id="reviewImageResult" type="reviewImageVO">
+	   <result property="image_id" column="image_id" />
+	   <result property="review_no" column="review_no" />
+	   <result property="fileName" column="fileName" />
+	</resultMap>
+	
+	<select id="selectProductReviewList" resultMap="reviewResult"   parameterType="String"  >
+     <![CDATA[
+			SELECT distinct r.*, o.product_id, o.product_name, o.product_main_image, o.product_option_name, o.product_option_price, o.center_name
+			from t_review r, t_order o
+			WHERE r.order_seq_num = o.order_seq_num
+			AND o.product_id=#{product_id}
+			order by review_write_date desc
+		]]>
+	</select>	
+	
+	
+	<select id="selectProductReviewImageList" resultMap="reviewImageResult"   parameterType="java.util.Map"  >
+     <![CDATA[
+			select * from t_review_image
+			where review_no in 
+		]]>
+		<foreach item="item" collection="list" open="(" separator="," close=")">
+			#{item.review_no}
+		</foreach>
+			order by review_no
+	</select>	
+
+	<select id="selectReviewList" resultMap="reviewResult"  >
+     <![CDATA[
+		SELECT distinct r.*, o.product_id, o.product_name, o.product_main_image,o.center_name
+		, (SELECT i.fileName FROM t_review_image i where r.review_no = i.review_no LIMIT 1) as review_main_image 
+		from t_review r, t_order o, t_review_image i
+		WHERE r.order_seq_num = o.order_seq_num	
+		order by review_write_date desc
+	]]>
+	</select>	
+	
+	<select id="selectReviewDetail" resultMap="reviewResult"   parameterType="int">
+     <![CDATA[
+		SELECT distinct r.*, o.product_id, o.product_name, o.product_main_image, o.product_option_name, o.product_option_price, o.center_name
+		, (SELECT i.fileName FROM t_review_image i where r.review_no = i.review_no LIMIT 1) as review_main_image 
+		from t_review r, t_order o, t_review_image i
+		WHERE r.order_seq_num = o.order_seq_num
+		and r.review_no = #{review_no} 	
+		order by review_write_date desc
+	]]>
+	</select>	
+
+	<select id="selectReviewImageList" resultMap="reviewImageResult"   parameterType="int"  >
+	    <![CDATA[
+	    	select * from  t_review_image 
+	    	where review_no=#{review_no}
+    	]]>
+	</select>
+
+</mapper> 

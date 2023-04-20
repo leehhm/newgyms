@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+
+	<!-- 사업장 소개 -->
+	<definition name="/owner/main/ownerPageIntroView" extends="baseLayout">
+       <put-attribute name="title" value="사업장 소개 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/owner/main/ownerPageIntroView.jsp" />
+    </definition>
+    
+    <!-- 사업장 관리 수정 페이지-->
+    <definition extends="baseLayout" name="/owner/main/ownerPageIntroModifyForm">
+	<put-attribute name="title" value="사업장 소개 수정페이지"/>
+	<put-attribute name="body" value="/WEB-INF/views/owner/main/ownerPageIntroModifyForm.jsp"/>
+	</definition>
+
+	<!-- 사업자 회원정보 수정/탈퇴 -->
+    <definition name="/owner/main/ownerPageModify" extends="baseLayout">
+       <put-attribute name="title" value="사업자정보 수정 비밀번호 확인 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/owner/main/ownerPageModify.jsp" />
+    </definition>
+    <definition name="/owner/main/ownerDetailInfo" extends="baseLayout">
+       <put-attribute name="title" value="사업자정보 수정 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/owner/main/ownerDetailInfo.jsp" />
+    </definition>
+    <definition name="/owner/main/deleteMemberForm" extends="baseLayout">
+       <put-attribute name="title" value="사업자 회원탈퇴 페이지" />
+       <put-attribute name="body" value="/WEB-INF/views/owner/main/deleteMemberForm.jsp" />
+    </definition>
+    
+</tiles-definitions>

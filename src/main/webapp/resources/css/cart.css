@@ -1,0 +1,103 @@
+
+/* searchProduct */
+
+#myCartList {
+	width:1200px; padding:10px; 
+}
+
+#myCartList h1 {
+  margin:20px; text-align:center;
+}
+
+#myCartList #total_count {
+margin: 10px 5px; font-size: 14px;
+}
+
+#myCartList .cart_list {
+  border-top:solid 1px rgb(150,150,150); border-bottom:solid 1px rgb(150,150,150);width:1200px; margin:auto;
+}
+
+#myCartList .cart_list td:first-child {
+  padding:5px; 
+}
+
+#myCartList .cart_list td:nth-child(2) {
+  width:200px; padding:10px; 
+}
+#myCartList .cart_list td:nth-child(2) img {
+  width:150px;height:150px; margin:auto; border: 1px solid #d8d8d8; border-radius: 10px;
+}
+
+#myCartList .cart_list .cart_title {
+  font-weight:bold; margin-bottom:10px;
+}
+#myCartList .cart_list .cart_option {
+  font-size:14px; color:rgb(100,100,100); 
+}
+
+#myCartList .cart_list .modify_option_btn {
+  width:150px;
+}
+
+#myCartList .cart_list .modify_option_btn a {
+  border:1px solid rgb(200,200,200); padding:8px; border-radius:8px; font-size:14px; 
+}
+
+#myCartList .cart_list .product_price {
+	color:rgb(150,150,150); text-decoration: line-through;
+}
+#myCartList .cart_list .product_total_price {
+  text-align:center; width:200px; 
+}
+
+#myCartList .cart_total_price {
+  text-align:right; font-size:20px; padding:10px;
+}
+
+
+#myCartList .order_button {
+  background-color:#0F0573;color:white; width:150px; padding:10px 20px; margin:20px; font-size:16px; border: 2px solid #0F0573;
+  border-radius:5px;
+}
+
+#myCartList .order_button:hover {
+  cursor : pointer;
+}
+
+#myCartList .back_button {
+  background-color:white;color:#0F0573; width:150px; padding:10px 20px; margin:20px; font-size:16px; border: 1px solid #0F0573; font-weight:bold;
+  border-radius:5px;
+}
+
+
+#myCartList #modify_popup {
+/* 	
+	justify-content: center;
+	align-items: center;
+	*/
+	position: fixed; left:800px; top:300px; 
+	
+	
+	height:300px;width:400px; border:1px solid rgb(150,150,150); background:white; padding: 30px 100px;
+}
+
+#myCartList #modify_popup .x_button {
+	padding-left:250px;
+}
+
+#myCartList #modify_popup h6 {
+	font-size:16px; padding:20px;text-align:center;	
+}
+
+#myCartList #modify_popup p {
+	font-size:14px; padding:10px 0;
+}
+
+#myCartList #modify_popup select {
+	width:220px; padding:5px;
+}
+
+#myCartList #modify_popup .modify_button {
+	display:block; text-align:center;
+	background-color:rgb(100,100,100);color:white;  width:110px; padding:10px 20px; margin:40px auto; 
+}

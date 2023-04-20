@@ -1,0 +1,174 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+* {
+    font-family:'GmarketSansMedium';
+     margin: 0px; padding: 0px;
+  }
+
+body {
+   margin : 0;
+   padding : 0;
+}
+
+/* 사업자 마이페이지 사이드바 */
+ul,
+li,
+body {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.owner_sidebar {
+   width: 200px;
+   height: 340px;
+   padding: 10px;
+   margin-right: 15px;
+   margin-top: 83px;
+   font-size: 17px;
+   text-align: center;
+   line-height: 40px;
+   border: 1px solid #D8D8D8;
+   border-radius: 5px;
+}
+
+.ownerpage_hr {
+   border-bottom: 1px solid #D8D8D8;
+}
+
+.owner_sidebar>ul>li {
+   font-size: 15px;
+}
+
+.owner_sidebar>ul>li:hover>a {
+   text-decoration: underline;
+   text-underline-position: under;
+   color: #F9C200;
+}
+
+
+.contain-right {
+	width:1200px;
+}
+
+/* 사업자 정보 */
+.ownerPage_intro_title {
+	font-size:28px;
+	margin-top: 40px;
+    margin-bottom: 25px;
+    border:none;
+    border-right:0px;
+    border-left:0px;
+    border-bottom:0px;
+    color:#0F0573;
+    width:500px;
+}
+.ownerPage_intro_title:disabled {
+	background-color:white;
+}
+.center_address,
+.center_tel {
+	border:none;
+	border-right:0px;
+	border-top:0px;
+	border-left:0px;
+	border-bottom:0px;
+	margin-bottom:10px;
+}
+.center_address,
+.center_tel {
+	font-size:18px;
+}
+.center_address:disabled,
+.center_tel:disabled {
+	background-color:white;
+}
+
+.center_address {
+	width:500px;
+}
+
+
+/* 추천회원권 */
+
+.productList {
+   width:1200px; padding:10px;
+}
+
+.productList #current_menu {
+  margin: 10px 5px 0px; font-size: 18px; padding:10px 0;
+}
+.productList #total_count {
+margin: 10px 5px 5px; font-size: 12px; float:left;
+}
+.productList .container {
+  width: 950px; font-size: 0.75em; margin-top: 10px; display: grid; grid-template-columns:repeat(4, 300px); 
+}
+
+.productList .container .item {
+   padding: 10px 0px; float:left;  
+}
+
+.productList .container .item .product_image {
+   position:relative; margin: auto;  overflow: hidden;
+}
+.productList .container .item .product_image:hover img{
+   transform:scale(1.05);
+}
+
+.productList .container .product_image img {
+   width: 250px; height:250px;  object-fit: cover; max-width:100%;transition:all 0.2s linear;
+}
+.productList .container .product_image .wish{
+    width: 40px; height:40px; position:absolute; top:190px; left:180px; border-radius: 100%; background-size:60%; background-color: #FFFDF6; opacity: 0.5;
+ transform: translate(0, 60px); 
+}
+
+.productList .container .product_image #wish img{
+    width: 30px; height:30px; position:absolute; top:195px; left:185px; opacity: 0.8; 
+    transform: translate(0, 60px);
+}
+
+.productList .container .item .product_image:hover .wish {
+transform: translate(0, 0);transition: linear 0.3s; 
+}
+.productList .container .item .product_image:hover #wish img{
+transform: translate(0, 0); transition: linear 0.3s; 
+ 
+}
+ 
+.productList .container .item  .product_description {
+   height:40px; margin: auto; margin: 10px 0
+}
+
+.productList .container  .item .product_description h2 a{
+   margin: 10px 6px; font-size: 18px;
+}
+.productList .container .product_description h3 a {
+  margin: 8px 6px; font-size: 14px; 
+}
+
+.productList .container .item .product_price {
+   padding: 1px 5px; 
+}
+.productList .container .discount_rate {
+   color: rgb(255, 0, 0); font-size: 16px; padding:3px 1px; float:left; font-weight:bold;
+}
+.productList .container .sales_price {
+   font-size: 16px; padding:3px 6px; float:left; font-weight:bold;
+}
+
+.productList .container .price{
+   color: rgb(150, 150, 150); font-size: 14px; clear:both; text-decoration: line-through; display:block;
+}
+

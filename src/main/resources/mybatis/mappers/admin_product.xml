@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.admin_product">
+
+	<resultMap id="productResult" type="ProductVO">
+		<result property="product_id" column="product_id" />
+		<result property="product_sort" column="product_sort" />
+		<result property="member_id" column="member_id" />
+		<result property="center_name" column="center_name" />
+		<result property="product_name" column="product_name" />
+		<result property="product_main_image" column="product_main_image" />
+		<result property="product_program_details" column="product_program_details" />
+		<result property="product_price_details" column="product_price_details" />
+		<result property="product_facility_details" column="product_facility_details" />
+		<result property="product_location_details" column="product_location_details" />		
+		<result property="product_price" column="product_price" />
+		<result property="product_sales_price" column="product_sales_price" />
+		<result property="product_point" column="product_point" />
+		<result property="product_entered_date" column="product_entered_date" />		
+		<result property="sale_yn" column="sale_yn" />
+		<result property="product_intro" column="product_intro" />
+		<result property="product_refund_1" column="product_refund_1" />
+		<result property="product_refund_2" column="product_refund_2" />
+	</resultMap>	
+
+	<resultMap id="productOptResult" type="ProductOptVO">
+	   <result property="product_id" column="product_id" />
+	   <result property="option_id" column="option_id" />
+	   <result property="product_option_name" column="product_option_name" />
+	   <result property="product_option_price" column="product_option_price" />
+	</resultMap>
+
+	<resultMap id="imageResult" type="ProductImageVO">
+	   <result property="product_id" column="product_id" />
+	   <result property="fileName" column="fileName" />
+	   <result property="reg_id" column="reg_id" />
+	   <result property="image_id" column="image_id" />
+	   <result property="fileType" column="fileType" />
+	</resultMap>
+	
+	<!-- 전체 상품 목록 --> 	
+	<select id="selectAllProductList" resultMap="productResult" parameterType="String">
+     <![CDATA[
+			select *
+			from (select *, ROW_NUMBER() over(order by product_entered_date) AS rowNum from t_product) a
+			where rowNum BETWEEN (#{maxnum}-4) - (#{chapter}-1)*5 and (#{maxnum}) - (#{chapter}-1)*5 
+			order by product_entered_date desc
+		]]>
+	</select>
+	
+	<!-- 페이지네이션 -->
+	<select id="maxNumSelect" resultType="String" parameterType="java.util.Map">
+       <![CDATA[
+            SELECT COUNT(*)
+         	FROM t_product
+      ]]>
+	</select>
+	
+	<!-- 상품 승인 -->
+	<update id="productAccess" parameterType="String">
+    <![CDATA[
+            update t_product
+            set product_state = "판매중"
+            where product_id=#{product_id}
+         ]]>
+	</update>
+	
+	<!-- 상품 삭제 -->
+	<delete id="removeProduct" parameterType="String">
+	<![CDATA[
+            delete from t_product
+			where product_id=#{product_id}
+         ]]>
+	</delete>
+	
+</mapper>

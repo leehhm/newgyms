@@ -1,0 +1,318 @@
+   @font-face {
+       font-family: 'GmarketSansMedium';
+       src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+       font-weight: normal;
+       font-style: normal;
+   }
+   * {
+       font-family:'GmarketSansMedium';
+        margin: 0px; padding: 0px;
+     }
+
+   body {
+      margin : 0;
+      padding : 0;
+   }
+   #contain {
+      width : 100%;
+   }
+
+	#gray_color {
+		color: #848484;
+	}
+   #red_color {
+      color : #FF0000;
+   }
+   #navy_color {
+      color : #0F0573;
+   }
+   .align_center {
+      text-align : center;
+   }
+   .inline {
+      display : inline;
+   }
+   #join_title {
+        margin-top : 50px;
+        font-size : 30px;
+   }
+   #login_table {
+        width : 60%;
+        margin : auto;
+        margin-top : 30px;
+        font-size : 15px;
+        text-align : center;
+        line-height : 50px;
+   }
+   .login_inputbox {
+    	padding : 15px;
+      	border : none;
+      	border-bottom : 1px solid #D8D8D8;
+   }
+   #join_table {
+        width : 40%;
+        margin : auto;
+        margin-top : 50px;
+        padding-left : 70px;
+        line-height : 60px;
+        font-size : 15px;
+   }
+   #join_table2 {
+       width : 50%;
+       margin-top : 50px;
+       padding-left : 70px;
+       line-height : 60px;
+   }
+   #search_table {
+        width : 50%;
+         margin-top : 30px;
+       padding-left: 120px;
+       line-height: 50px;
+   }
+   .join_textbox {
+      width : 15px;
+      text-align : left;
+      padding : 10px;   
+   }
+   .join_inputbox {
+      padding : 3px;
+      border : none;
+      border-bottom : 1px solid #D8D8D8;
+   }
+   #join_agree {
+      	width : 65%;
+      	margin-top : 10px;
+        line-height : 30px;
+        font-size : 13px;
+        text-align : left;
+   }
+   .checkbox_group {
+   		margin-top : 20px;
+   		padding : 15px;
+    	width : 40%;
+   		border : 1px solid #D8D8D8;
+   		border-radius : 30px;
+   }
+   #check_btn {
+      margin-top : 20px;
+      border : 1px solid #0F0573;
+     width : 300px;
+      height : 40px;
+     padding : 10px;
+     text-align : center;
+      font-size : 15px;
+      color: rgb(51, 51, 51);
+     background-color : white;
+     border-radius : 5px;
+}
+   #join_btn {
+       margin-top : 20px;
+       border : none;
+      width : 300px;
+      height : 40px;
+      padding : 10px;
+      text-align : center;
+       font-size : 15px;
+       color : #FFFFFF;
+      background-color : #0F0573;
+      border-radius : 5px;
+   }
+   #join_btn:hover {
+      cursor : pointer;
+   }
+   #check_btn:hover {
+      cursor : pointer;
+   }
+   #kakao_join {
+      width : 300px;
+      height : 40px;
+   }
+   #kakao_image {
+      width : auto;
+   }
+   #join_subtext {
+      color : #848484;
+      font-size : 12px;
+   }
+   .join_idpw_btn {
+       margin : 20px 5px 10px 5px;
+       border : none;
+      width : 250px;
+      padding : 10px;
+      text-align : center;
+       font-size : 15px;
+       color : #FFFFFF;
+      background-color : #0F0573;
+      text-decoration : none;
+      border-radius : 5px;
+   }
+   #join_idpw_btn:hover {
+      cursor : pointer;
+   }
+   
+   #join_notice {
+      margin-top : 50px;
+      font-size : 20px;
+      padding : 10px;
+      color : green;
+   }
+   #notice_box {
+      width : 500px;
+      border : 1px solid gray;
+      text-align : center;
+       margin : 10px 10px 30px 10px;
+       padding : 100px;
+       font-size : 20px;
+   }
+   #id_check, #pw_help, #pw_check {
+      font-size : 10px;
+      line-height : 0;
+      padding-left : 130px;
+   }
+   #id_check2, #pw_help2, #pw_check2 {
+      font-size : 10px;
+      line-height : 0;
+      padding-left : 143px;
+   } 
+   #postcode {
+      margin-left: 10px;
+       font-size: 10px;
+       padding: 7px;
+       background-color: #FFFFFF;
+       border: 1px solid #D8D8D8;
+       color: #000000;
+   }
+   .btn {
+       font-size : 10px;
+       padding : 7px;
+      background-color : #FFFFFF;
+      border : 1px solid #D8D8D8;
+       color: #000000;
+   }
+   .btn2 {
+      width : 110px;
+      height : 25px;
+      background-color : #0F0573;
+      color : white;
+      border-radius : 5px;
+   }
+   
+   /* И№До */
+   .container {
+  background-color: #9191e9;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100vw;
+  height: 100vh;
+}
+
+.button {
+  text-decoration: none;
+  font-size: 0.875rem;
+  font-weight: 300;
+  text-transform: uppercase;
+  display: inline-block;
+  border-radius: 1.5rem;
+  background-color: #fff;
+  color: #9191e9;
+  padding: 1rem 2rem;
+}
+
+.popup {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: fixed;
+  width: 100vw;
+  height: 100vh;
+  bottom: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  z-index: 2;
+  visibility: hidden;
+  opacity: 0;
+  overflow: hiden;
+  transition: 0.64s ease-in-out;
+}
+.popup-inner {
+  position: relative;
+  bottom: -100vw;
+  right: -100vh;
+  display: flex;
+  align-items: center;
+  max-width: 800px;
+  max-height: 600px;
+  width: 60%;
+  height: 80%;
+  background-color: #fff;
+  transform: rotate(32deg);
+  transition: 0.64s ease-in-out;
+}
+.popup__photo {
+  width: 40%;
+  height: 55%;
+  overflow: hidden;
+}
+.popup__photo img {
+  width: auto;
+  height: 100%;
+}
+.popup__text {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 70%;
+  height: 100%;
+  padding: 2rem;
+}
+.popup__text h1 {
+  font-size: 2rem;
+  font-weight: 600;
+  margin-bottom: 2rem;
+  text-transform: uppercase;
+  color: #0a0a0a;
+}
+.popup__text p {
+  font-size: 0.875rem;
+  color: #686868;
+  line-height: 2.0;
+}
+.popup__text table {
+   margin-top : 10px;
+   font-size: 10px;
+    line-height: 2.0;
+}
+.popup__text table td {
+    color:#686868;
+}
+.popup__text table th {
+    color:#686868;
+   text-align : center;
+}
+.popup:target {
+  visibility: visible;
+  opacity: 1;
+}
+.popup:target .popup-inner {
+  bottom: 0;
+  right: 0;
+  transform: rotate(0);
+}
+.popup__close {
+  position: absolute;
+  right: -1rem;
+  top: -1rem;
+  width: 3rem;
+  height: 3rem;
+  font-size: 0.875rem;
+  font-weight: 300;
+  border-radius: 100%;
+  background-color: #0a0a0a;
+  z-index: 4;
+  color: #fff;
+  line-height: 3rem;
+  text-align: center;
+  cursor: pointer;
+  text-decoration: none;
+}

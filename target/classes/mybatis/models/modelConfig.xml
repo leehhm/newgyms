@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration 	PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-config.dtd">
+
+<configuration>
+  <typeAliases>
+	<typeAlias alias="articleVO" type="com.mycompany.newgyms.board.vo.ArticleVO"/>
+	
+	<typeAlias alias="imageVO" type="com.mycompany.newgyms.board.vo.ImageVO"/>
+	
+	<typeAlias alias="replyVO" type="com.mycompany.newgyms.board.vo.ReplyVO"/>
+	
+	<typeAlias alias="cartVO" type="com.mycompany.newgyms.cart.vo.CartVO"/>
+	
+	<typeAlias alias="eventVO" type="com.mycompany.newgyms.event.vo.EventVO"/>
+	
+	<typeAlias alias="memberVO" type="com.mycompany.newgyms.member.vo.MemberVO"/>
+	
+	<typeAlias alias="mypageVO" type="com.mycompany.newgyms.mypage.vo.MyPageVO"/>
+	
+	<typeAlias alias="refundVO" type="com.mycompany.newgyms.mypage.vo.RefundVO"/>
+	
+	<typeAlias alias="pointVO" type="com.mycompany.newgyms.mypage.vo.PointVO"/>
+	
+	<typeAlias alias="noticeVO" type="com.mycompany.newgyms.notice.vo.NoticeVO"/>
+	
+	<typeAlias alias="imageVO" type="com.mycompany.newgyms.notice.vo.ImageVO"/>
+	
+	<typeAlias alias="orderVO" type="com.mycompany.newgyms.order.vo.OrderVO"/>
+	
+	<typeAlias alias="productVO" type="com.mycompany.newgyms.product.vo.ProductVO"/>
+	
+	<typeAlias alias="productOptVO" type="com.mycompany.newgyms.product.vo.ProductOptVO"/>
+	
+	<typeAlias alias="productImageVO" type="com.mycompany.newgyms.product.vo.ProductImageVO"/>
+	
+	<typeAlias alias="qnaVO" type="com.mycompany.newgyms.qna.vo.QnaVO"/>
+	
+	<typeAlias alias="reviewVO" type="com.mycompany.newgyms.review.vo.ReviewVO"/>
+	
+	<typeAlias alias="reviewImageVO" type="com.mycompany.newgyms.review.vo.ReviewImageVO"/>
+	
+	<typeAlias alias="wishVO" type="com.mycompany.newgyms.wish.vo.WishVO"/>
+	
+	<typeAlias type="com.mycompany.newgyms.owner.main.vo.OwnerPageVO" alias="ownerPageVO"/>
+</typeAliases>
+</configuration>
+
+
+

@@ -1,0 +1,524 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.mypage">
+	<!-- 리절트 맵 정의 -->
+	<!-- 결제내역 조회 -->
+	<resultMap id="orderProductResult" type="orderVO">
+		<result property="order_seq_num" column="order_seq_num" />
+		<result property="order_id" column="order_id" />
+		<result property="member_id" column="member_id" />
+		<result property="product_id" column="product_id" />
+		<result property="orderer_name" column="orderer_name" />
+		<result property="orderer_hp1" column="orderer_hp1" />
+		<result property="orderer_hp2" column="orderer_hp2" />
+		<result property="orderer_hp3" column="orderer_hp3" />
+		<result property="nonmember_pw" column="nonmember_pw" />
+		<result property="center_name" column="center_name" />
+		<result property="product_name" column="product_name" />
+		<result property="product_main_image" column="product_main_image" />
+		<result property="product_price" column="product_price" />
+		<result property="product_sales_price" column="product_sales_price" />
+		<result property="goods_filename" column="goods_filename" />
+		<result property="receiver_name" column="receiver_name" />
+		<result property="receiver_hp1" column="receiver_hp1" />
+		<result property="receiver_hp2" column="receiver_hp2" />
+		<result property="receiver_hp3" column="receiver_hp3" />
+		<result property="pay_method" column="pay_method" />
+		<result property="card_com_name" column="card_com_name" />
+		<result property="card_pay_month" column="card_pay_month" />
+		<result property="pay_order_time" column="pay_order_time" />
+		<result property="order_state" column="order_state" />
+		<result property="option_id" column="option_id" />
+		<result property="option_name" column="option_name" />
+	</resultMap>
+
+	<!-- 환불/취소 신청 -->
+	<resultMap id="refundResult" type="refundVO">
+		<result property="refund_id" column="refund_id" />
+		<result property="order_seq_num" column="order_seq_num" />
+		<result property="refund_price" column="refund_price" />
+		<result property="order_state" column="order_state" />
+		<result property="account_holder" column="account_holder" />
+		<result property="account_bank" column="account_bank" />
+		<result property="account_number" column="account_number" />
+		<result property="cancel_reason" column="cancel_reason" />
+	</resultMap>
+	
+	<!-- 적립금 조회 -->
+	<resultMap id="pointResult" type="pointVO">
+		<result property="point_id" column="point_id" />
+		<result property="point_state" column="point_state" />
+		<result property="point_name" column="point_name" />
+		<result property="point_price" column="point_price" />
+		<result property="point_date" column="point_date" />
+		<result property="member_id" column="member_id" />
+		<result property="product_id" column="product_id" />
+	</resultMap>
+
+	<!-- 게시글 불러오기 -->
+	<resultMap id="articlesResult" type="articleVO">
+		<result property="level" column="level" />
+		<result property="article_no" column="article_no" />
+		<result property="parent_no" column="parent_no" />
+		<result property="board_title" column="board_title" />
+		<result property="board_content" column="board_content" />
+		<result property="board_write_date" column="board_write_date" />
+		<result property="board_image" column="board_image" />
+	</resultMap>
+	
+	<resultMap id="reviewResult" type="ReviewVO">
+		<result property="review_no" column="review_no" />
+		<result property="order_id" column="order_id" />
+		<result property="member_id" column="member_id" />
+		<result property="center_name" column="center_name" />
+		<result property="product_id" column="product_id" />
+		<result property="product_name" column="product_name" />
+		<result property="product_main_image" column="product_main_image" />
+		<result property="product_option_name" column="product_option_name" />
+		<result property="product_option_price" column="product_option_price" />
+		<result property="review_main_image" column="review_main_image" />
+		<result property="review_title" column="review_title" />
+		<result property="review_contents" column="review_contents" />
+		<result property="review_image" column="review_image" />
+		<result property="review_score" column="review_score" />
+		<result property="review_write_date" column="review_wirte_date" />
+	</resultMap>
+	
+	<resultMap id="reviewImageResult" type="reviewImageVO">
+	   <result property="image_id" column="image_id" />
+	   <result property="review_no" column="review_no" />
+	   <result property="fileName" column="fileName" />
+	   <result property="reg_id" column="reg_id" />
+	</resultMap>
+
+	<!-- QnA -->
+	<resultMap id="qnaResult"  type="QnaVO" >
+		<result column="qna_no" property="qna_no"/>
+		<result column="qna_parent_no" property="qna_parent_no"/>
+		<result column="product_id" property="product_id"/>
+		<result column="member_id" property="member_id"/>
+		<result column="qna_answer_state" property="qna_answer_state"/>
+		<result column="qna_secret" property="qna_secret"/>
+		<result column="qna_title" property="qna_title"/>
+		<result column="qna_contents" property="qna_contents"/>
+		<result column="qna_wirte_date" property="qna_write_date"/>
+		
+		<!-- 마이페이지에서 Qna 상품 정보 -->
+		<result column="product_main_image" property="product_main_image"/>
+		<result column="product_name" property="product_name"/>
+		<result column="center_name" property="center_name"/>
+		
+	</resultMap>
+	
+	<!-- 회원정보 수정 -->
+	<resultMap id="memberResult" type="MemberVO">
+		<result property="member_id" column="member_id" />
+		<result property="member_pw" column="member_pw" />
+		<result property="member_name" column="member_name" />
+		<result property="member_gender" column="member_gender" />
+		<result property="member_rrn1" column="member_rrn1" />
+		<result property="member_rrn2" column="member_rrn2" />
+
+		<result property="member_birth_y" column="member_birth_y" />
+		<result property="member_birth_m" column="member_birth_m" />
+		<result property="member_birth_d" column="member_birth_d" />
+
+		<result property="hp1" column="hp1" />
+		<result property="hp2" column="hp2" />
+		<result property="hp3" column="hp3" />
+		<result property="smssts_yn" column="smssts_yn" />
+		<result property="email1" column="email1" />
+		<result property="email2" column="email2" />
+		<result property="emailsts_yn" column="emailsts_yn" />
+
+		<result property="zipcode" column="zipcode" />
+		<result property="road_address" column="road_address" />
+		<result property="jibun_address" column="jibun_address" />
+		<result property="namuji_address" column="namuji_address" />
+		<result property="join_date" column="join_date" />
+		<result property="join_type" column="join_type" />
+
+		<result property="center_name" column="center_name" />
+		<result property="owner_eid" column="owner_eid" />
+		<result property="owner_tel1" column="owner_tel1" />
+		<result property="owner_tel2" column="owner_tel2" />
+		<result property="owner_tel3" column="owner_tel3" />
+	</resultMap>
+
+	<!-- 회원정보에 따른 대표 주문정보 조회 -->
+   <select id="selectMyOrderList" resultMap="orderProductResult"
+      parameterType="java.util.Map">
+       <![CDATA[
+         select *
+            FROM (
+            SELECT 
+            ROW_NUMBER() over(order by order_seq_num) AS rowNum,
+               a.total_price,
+                a.order_seq_num,
+                a.member_id,
+                a.pay_order_time,
+                a.order_state,
+                a.order_id,
+                a.product_name,
+                a.product_sales_price,
+                a.product_price,
+                a.product_option_name,
+                a.product_option_price,
+                b.product_id,
+                b.product_main_image
+                  from t_order a, t_product b
+                  WHERE a.product_id = b.product_id
+                  and a.member_id=#{member_id}
+                  GROUP BY a.order_id
+                  )a
+                  where rowNum BETWEEN (#{orderMemberList}-4) - (#{chapter}-1)*5 and (#{orderMemberList}) - (#{chapter}-1)*5
+                  order by order_seq_num DESC
+      ]]>
+   </select>
+
+	<!-- 회원정보에 따른 주문정보 전체 조회 -->
+	<select id="selectOrderMember" resultMap="orderProductResult"
+		parameterType="java.util.Map">
+       <![CDATA[
+       SELECT
+         a.order_seq_num,
+         a.member_id,
+         a.pay_order_time,
+         a.order_state,
+         a.order_id,
+         a.product_name,
+         a.product_sales_price,
+         a.product_price,
+         a.product_option_name,
+         a.product_option_price,
+           b.product_id,
+           b.product_main_image
+             FROM t_order a, t_product b
+             WHERE a.product_id = b.product_id
+             AND a.member_id=#{member_id}
+      ]]>
+	</select>
+
+	<!-- 페이지네이션 -->
+	<select id="maxNumSelect" resultType="String"
+		parameterType="java.util.Map">
+       <![CDATA[
+         SELECT COUNT(*)
+      order_seq_num
+      from t_order 
+      WHERE member_id=#{member_id}
+      ]]>
+	</select>
+
+	<!-- 주문 회원 목록 조회 -->
+	<select id="orderMemberListSelect" resultType="java.util.Map"
+		parameterType="java.util.Map">
+       <![CDATA[
+             SELECT COUNT(*) AS countnum , order_id
+			 from t_order
+			 WHERE member_id=#{member_id}
+			 GROUP BY order_id
+      ]]>
+	</select>
+	
+	<!-- 이미지 업로드 -->
+	<select id="selectNewReviewNO" resultType="int">
+		<![CDATA[
+			select ifnull(max(review_no), 0) + 1 from t_review
+		]]>
+	</select>
+	
+	<!-- t_review에 이미지업로드 저장 -->
+	<insert id="insertNewReview" parameterType="java.util.Map">
+		<![CDATA[
+			insert into t_review(review_no, review_title, review_contents, member_id, review_score,order_seq_num)
+			values(#{review_no}, #{review_title}, #{review_contents}, #{member_id}, #{review_score}, #{order_seq_num})
+		]]>
+	</insert>
+	
+	<!-- t_reivew_image에 이미지업로드 저장 -->
+	<insert id="insertReviewImage" parameterType="reviewImageVO">
+		<![CDATA[
+			insert into t_review_image(review_no,fileName)
+			values
+			(#{review_no}, #{fileName})
+		]]>
+	</insert>
+
+	<!-- 주문 상세보기 페이지 -->
+	<select id="selectMyOrderDetail" resultMap="orderProductResult"
+		parameterType="String">
+       <![CDATA[
+         select a.*, b.product_id, b.product_main_image
+         from t_order a, t_product b
+            where a.order_id=#{order_id} and a.product_id = b.product_id
+            order by order_seq_num desc
+      ]]>
+	</select>
+
+	<!-- 주문취소 페이지 -->
+	<select id="selectMyOrderCancel" resultMap="orderProductResult"
+		parameterType="java.util.Map">
+       <![CDATA[
+         select a.*, b.product_id, b.product_main_image, a.total_price AS refund_price
+         from t_order a, t_product b
+         where a.product_id = b.product_id 
+            and order_seq_num in
+      ]]>
+		<foreach item="item" collection="list" open="(" separator=","
+			close=")">
+			#{item}
+		</foreach>
+		order by order_seq_num desc
+	</select>
+	
+	<!-- 환불 정보 입력 -->
+	<insert id="refundMyOrder" parameterType="java.util.Map">
+   <![CDATA[
+      insert into t_refund(refund_id,
+      				 order_seq_num,
+                     refund_price,
+                     order_state,
+                     account_holder,
+                     account_bank,
+                     account_number,
+                     cancel_reason)
+                values(#{refund_id},
+                	  #{order_seq_num},
+                      #{refund_price},
+                      #{order_state},
+                      #{account_holder},
+                      #{account_bank},
+                      #{account_number},
+                      #{cancel_reason})
+   ]]>
+	</insert>
+
+	<!-- 환불 시 결제 상태 업데이트 -->
+	<update id="updateOrderState" parameterType="java.util.Map">
+    <![CDATA[
+            update t_order
+            set order_state=#{order_state} 
+            where order_seq_num=#{order_seq_num}
+         ]]>
+	</update>
+	
+	<!-- 환불번호 부여 -->
+	<select id="selectNewRefundId" resultType="int">
+		<![CDATA[
+			select ifnull(max(refund_id), 0) + 1 from t_refund
+		]]>
+	</select>
+
+
+
+	<!-- 적립금 총 내역 -->
+	<select id="selectMyStackList" resultType="pointVO" parameterType="java.util.Map">
+       <![CDATA[
+            SELECT *
+			FROM(SELECT *, ROW_NUMBER() over(order by point_id) AS rowNum
+				FROM t_point
+				WHERE member_id=#{member_id})a
+			where rowNum BETWEEN (#{maxnum}-4) - (#{chapter}-1)*5 and (#{maxnum}) - (#{chapter}-1)*5
+			ORDER BY point_id desc
+      	]]>
+	</select>
+
+	<!-- 적립금 총 개수 -->
+	<select id="maxStackSelect" resultType="String" parameterType="java.util.Map">
+       <![CDATA[
+             SELECT COUNT(*)
+             from t_point
+             WHERE member_id = #{member_id}
+             order BY point_id desc
+      ]]>
+	</select>
+
+	<!-- 현재 적립금 -->
+	<select id="nowPointSelect" resultType="String" parameterType="String">
+       <![CDATA[
+            SELECT (SELECT SUM(case when point_state='적립' then point_price ELSE 0 END))- (SELECT SUM(case when point_state='사용' then point_price ELSE 0 END)) AS now
+			FROM t_point
+			WHERE member_id=#{member_id}
+			ORDER BY point_id desc
+      ]]>
+	</select>
+	
+	<!-- 적립금 사용/적립 기록 -->
+	<insert id="pointLog" parameterType="java.util.Map">
+		insert into t_point(point_state,
+							point_name,
+							point_price,
+							member_id)
+					values(#{point_state},
+						   #{point_name},
+						   #{point_price},
+						   #{member_id})
+	</insert>
+	
+	<!-- 내 게시글 불러오기 -->
+	<select id="selectMyArticleList" resultMap="articlesResult" parameterType="String">
+       <![CDATA[
+         select article_no, board_title, board_write_date
+         from t_board
+         where member_id=#{member_id}
+         order by board_write_date desc
+      ]]>
+	</select>
+	
+	<!-- 리뷰 -->
+	<select id="reviewMaxNum" resultType="String"
+		parameterType="java.util.Map">
+       <![CDATA[
+             SELECT COUNT(*)
+         FROM t_review
+         WHERE member_id=#{member_id}
+         AND review_title LIKE CONCAT('%',#{text_box},'%')
+	   	AND review_write_date BETWEEN DATE(#{firstDate}) and DATE(#{secondDate})
+      ]]>
+	</select>
+
+	<!-- 리뷰 전체 조회 -->
+	<select id="listMyReviews" resultMap="reviewResult"
+		parameterType="java.util.Map">
+       <![CDATA[
+        select *
+            FROM (
+            SELECT 
+            ROW_NUMBER() over(order by review_no DESC) AS rowNum,
+               a.*,
+               b.product_name,
+               b.product_option_name,
+               b.product_option_price
+                from t_review a, t_order b
+                 WHERE a.order_seq_num = b.order_seq_num
+             )a
+          where rowNum BETWEEN (#{maxnum}-4) - (#{chapter}-1)*5 and (#{maxnum}) - (#{chapter}-1)*5
+          AND member_id=#{member_id}
+				  ORDER by review_no
+      ]]>
+	</select>
+	
+	<!-- 리뷰 삭제 -->
+	<delete id="deleteReview" parameterType="java.util.Map">
+      <![CDATA[
+          delete from t_review
+         where member_id=#{member_id}
+         AND review_no=#{review_no}
+        ]]>
+	</delete>
+	
+	<!-- QnA 조회 -->
+	<select id="selectMyQuestionList" parameterType="String" resultMap="qnaResult">
+		<![CDATA[
+ 			select q.*, p.product_name, p.product_main_image, m.center_name from t_qna q, t_product p, t_member m
+			where q.member_id=#{member_id} and q.qna_parent_no=0
+			and (q.product_id = p.product_id or q.product_id = 0 )and p.member_id=m.member_id
+			group by qna_no
+			order by q.qna_write_date desc
+		]]>
+	</select>
+	
+	<select id="selectMyAnswerList" parameterType="String" resultMap="qnaResult">
+		<![CDATA[
+ 			select * from t_qna
+			where qna_parent_no != 0
+			order by qna_write_date desc
+      ]]>
+	</select>
+	
+	<update id="updateQna" parameterType="qnaVO">
+	    <![CDATA[
+		    update t_qna
+			       set qna_title=#{qna_title},
+				       qna_contents=#{qna_contents},
+				       qna_secret=#{qna_secret}
+		 	       where qna_no=#{qna_no}
+    	]]>
+	</update>
+	
+	<delete id="deleteQna" parameterType="int">
+	    <![CDATA[
+	      delete from t_qna
+	      where qna_no=#{qna_no} or qna_parent_no=#{qna_no}
+    	]]>
+	</delete>
+
+	<!-- 마이페이지 계정 비밀번호 확인 -->
+	<select id="myPageDetail" resultType="memberVO"
+		parameterType="java.util.Map">
+       <![CDATA[
+         select * from t_member 
+          where member_id=#{member_id}
+          and member_pw=#{member_pw}
+      ]]>
+	</select>
+
+	<!-- 회원정보 수정 -->
+	<update id="updateMyInfo" parameterType="java.util.Map">
+		update t_member
+		<set>
+			<if test=" member_pw!='' and member_pw!=null">
+				member_pw=#{member_pw},
+			</if>
+			<if test=" zipcode!='' and zipcode!=null">
+				zipcode=#{zipcode},
+			</if>
+			<if test=" road_address!='' and road_address!=null">
+				road_address=#{road_address},
+			</if>
+			<if test=" jibun_address!='' and jibun_address!=null">
+				jibun_address=#{jibun_address},
+			</if>
+			<if test=" namuji_address!='' and namuji_address!=null">
+				namuji_address=#{namuji_address},
+			</if>
+			<if test=" hp1!='' and hp1!=null">
+				hp1=#{hp1},
+			</if>
+			<if test=" hp2!='' and hp2!=null">
+				hp2=#{hp2},
+			</if>
+			<if test=" hp3!='' and hp3!=null">
+				hp3=#{hp3},
+			</if>
+			<if test=" smssts_yn!='' and smssts_yn!=null">
+				smssts_yn=#{smssts_yn},
+			</if>
+			<if test=" email1!='' and email1!=null">
+				email1=#{email1},
+			</if>
+			<if test=" email2!='' and email2!=null">
+				email2=#{email2},
+			</if>
+			<if test=" emailsts_yn!='' and emailsts_yn!=null">
+				emailsts_yn=#{emailsts_yn},
+			</if>
+			<if test=" member_birth_y!='' and member_birth_y!=null">
+				member_birth_y=#{member_birth_y},
+			</if>
+			<if test=" member_birth_m!='' and member_birth_m!=null">
+				member_birth_m=#{member_birth_m},
+			</if>
+			<if test=" member_birth_d!='' and member_birth_d!=null">
+				member_birth_d=#{member_birth_d},
+			</if>
+		</set>
+		where
+		member_id=#{member_id}
+	</update>
+	
+	<!-- 회원탈퇴 -->
+	<update id="deleteMember" parameterType="java.util.Map">
+      <![CDATA[
+         update  t_member
+         set del_yn = 'Y'
+         where member_id=#{member_id} and member_pw=#{member_pw}
+         
+        ]]>
+	</update>
+
+</mapper>

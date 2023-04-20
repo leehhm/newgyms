@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="mapper.event">
+	<resultMap id="eventsResult" type="eventVO">
+		<result property="event_no" column="event_no" />
+		<result property="product_id" column="product_id" />
+		<result property="member_id" column="member_id" />
+		<result property="center_name" column="center_name" />
+		<result property="product_name" column="product_name" />
+		<result property="event_title" column="event_title" />
+		<result property="event_content" column="event_content" />
+		<result property="event_image" column="event_image" />
+		<result property="event_write_date" column="event_write_date" />
+		<result property="event_start_date" column="event_start_date" />
+		<result property="event_end_date" column="event_end_date" />
+	</resultMap>
+	
+	<resultMap id="imgResult" type="imageVO">
+		<result property="imageFileNO" column="imageFileNO" />
+		<result property="event_no" column="event_no" />
+		<result property="event_image" column="event_image" />
+	</resultMap>
+	
+	<resultMap id="productResult" type="ProductVO">
+		<result property="product_id" column="product_id" />
+		<result property="product_sort" column="product_sort" />
+		<result property="member_id" column="member_id" />
+		<result property="center_name" column="center_name" />
+		<result property="product_name" column="product_name" />
+		<result property="product_main_image" column="product_main_image" />
+		<result property="product_program_details" column="product_program_details" />
+		<result property="product_price_details" column="product_price_details" />
+		<result property="product_facility_details" column="product_facility_details" />
+		<result property="product_location_details" column="product_location_details" />		
+		<result property="product_price" column="product_price" />
+		<result property="product_sales_price" column="product_sales_price" />
+		<result property="product_point" column="product_point" />
+		<result property="product_entered_date" column="product_entered_date" />		
+		<result property="sale_yn" column="sale_yn" />
+		<result property="product_intro" column="product_intro" />
+		<result property="product_refund_1" column="product_refund_1" />
+		<result property="product_refund_2" column="product_refund_2" />
+	</resultMap>
+	
+	<select id="selectAllEventsList" resultMap="eventsResult">
+		<![CDATA[
+			select *
+			from t_event
+			order by event_write_date desc
+		]]>
+	</select>
+	
+	<select id="selectIngSortEvent" resultMap="eventsResult" parameterType="String">
+		<![CDATA[
+			select *
+			from t_event
+			where DATE_FORMAT(CURDATE(), '%Y-%m-%d') >= event_start_date AND event_end_date >= DATE_FORMAT(CURDATE(), '%Y-%m-%d')
+			order by event_write_date DESC
+		]]>
+	</select>
+	
+	<select id="selectEndSortEvent" resultMap="eventsResult" parameterType="String">
+		<![CDATA[
+			select *
+			from t_event
+			where DATE_FORMAT(CURDATE(), '%Y-%m-%d') >= event_end_date
+			order by event_write_date DESC
+		]]>
+	</select>
+	
+	<select id="selectProductList" resultMap="productResult" parameterType="String">
+		<![CDATA[
+			select *
+			from t_product
+			where member_id=#{member_id}
+		]]>
+	</select>
+	
+	<insert id="insertNewEvent" parameterType="java.util.Map">
+		<![CDATA[
+			insert into t_event(event_no, product_id, member_id, center_name, product_name, event_title, event_content, event_image, event_start_date, event_end_date)
+			values(#{event_no}, #{product_id}, #{member_id}, #{center_name}, #{product_name}, #{event_title}, #{event_content}, #{event_image}, #{event_start_date}, #{event_end_date})
+		]]>
+	</insert>
+	
+	<select id="selectNewEventNO" resultType="int">
+		<![CDATA[
+			select ifnull(max(event_no), 0) + 1 from t_event
+		]]>
+	</select>
+	
+	<select id="viewEvent" resultType="eventVO" parameterType="int">
+		<![CDATA[
+			select * 
+			from t_event 
+			where event_no=#{event_no}
+		]]>
+	</select>
+	
+	<update id="updateEvent" parameterType="java.util.Map">
+		<![CDATA[
+			update t_event
+			set event_title=#{event_title}, event_content=#{event_content}, event_image=#{event_image}
+			where event_no = #{event_no}
+		]]>
+	</update>
+	
+	<delete id="deleteEvent" parameterType="int">
+		<![CDATA[
+			delete from t_event
+			where event_no=#{event_no}
+		]]>
+	</delete>
+	
+	<select id="selectNewImageFileNO" resultType="int">
+		<![CDATA[
+			select ifnull(max(imageFileNO),0) from t_event
+		]]>
+	</select>
+	
+	<select id="selectImageFileList" resultMap="imgResult" parameterType="int">
+		<![CDATA[
+			select * from t_event
+			where event_no=#{event_no}
+		]]>
+	</select>
+</mapper>

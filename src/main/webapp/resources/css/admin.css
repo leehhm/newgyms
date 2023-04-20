@@ -1,0 +1,337 @@
+@charset "UTF-8";
+
+@font-face {
+    font-family: 'GmarketSansMedium';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+* {
+    font-family:'GmarketSansMedium';
+     margin: 0px; padding: 0px;
+  }
+
+body {
+   margin : 0;
+   padding : 0;
+}
+
+/* 사업자 마이페이지 사이드바 */
+ul,
+li,
+body {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+}
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+#contain {
+	display: flex;
+}
+
+#contain_right {
+	width: 1000px;
+}	
+
+.admin_sidebar {
+   width: 200px;
+   height: 380px;
+   padding: 10px;
+   margin-right: 15px;
+   margin-top: 83px;
+   font-size: 17px;
+   text-align: center;
+   line-height: 40px;
+   border: 1px solid #D8D8D8;
+   border-radius: 5px;
+}
+
+.adminpage_hr {
+   border-bottom: 1px solid #D8D8D8;
+}
+
+.admin_sidebar>ul>li {
+   font-size: 15px;
+}
+
+.admin_sidebar>ul>li:hover>a {
+   text-decoration: underline;
+   text-underline-position: under;
+   color: #F9C200;
+}
+
+#admin_modify_btn {
+	border: none;
+	width: 80px;
+	padding: 10px;
+	font-size: 13px;
+	color: #FFFFFF;
+	background-color: #0F0573;
+	text-decoration: none;
+	border-radius: 5px;
+}
+
+#admin_delete_btn {
+    border: 1px solid #0F0573;
+    width: 78px;
+    padding: 9px;
+    font-size: 13px;
+    color: #0F0573;
+    background-color: #FFFFFF;
+    text-decoration: none;
+    border-radius: 5px;
+}
+#admin_modify_btn:hover, #admin_delete_btn:hover {
+	cursor : pointer;
+}
+
+/* 게시판 관리 & 공지사항 관리 */
+
+#admin_modify_btn {
+	margin: 10px 5px;
+	border: none;
+	width: 75px;
+    padding: 9px 7px 7px 7px;
+	text-align: center;
+	font-size: 12px;
+	color: #FFFFFF;
+	background-color: #0F0573;
+	text-decoration: none;
+	border-radius: 5px;
+}
+#admin_delete_btn {
+	margin: 10px 5px;
+    border: 1px solid #0F0573;
+    width: 75px;
+    padding: 8px 7px 6px 7px;
+    text-align: center;
+    font-size: 12px;
+    color: #0F0573;
+    background-color: #FFFFFF;
+    text-decoration: none;
+    border-radius: 5px;
+}
+#modify_btn:hover, #delete_btn:hover {
+	cursor : pointer;
+}
+
+#admin_notice_table {
+	margin-top: 13px;
+    width: 100%;
+    padding: 10px;
+    line-height: 40px;
+    border-top: 1px solid #D8D8D8;
+    border-bottom: 1px solid #D8D8D8;
+    text-align: center;
+}
+
+#admin_notice_table td {
+	border-top: 1px solid rgb(244, 244, 244);
+	text-align: center;
+}
+
+#admin_member_table {
+	width: 100%;
+	padding: 10px;
+	line-height: 40px;
+	text-align : center;
+}
+
+#admin_member_table th {
+	border-bottom: 1px solid rgb(244, 244, 244);
+	text-align: center;
+}
+
+#admin_member_table td {
+	border-bottom: 1px solid rgb(244, 244, 244);
+	text-align: center;
+}
+
+#admin_member_title {
+	margin-top: 30px;
+	margin-bottom: 20px;
+	padding: 5px;
+	font-size: 25px;
+	text-align: center;
+}
+
+
+/*Q&A*/
+
+#qna_title {
+	margin-top: 30px;
+	margin-bottom: 20px;
+	padding: 5px;
+	font-size: 25px;
+	text-align: center;
+}
+
+.qna_list {
+	clear:both; margin:0 auto;
+    
+}
+
+.qna_list td {
+    
+ border-top: 1px solid rgb(244, 244, 244);
+ 
+}
+ 
+.qna_list th {
+ padding:15px; 
+}
+ 
+.qna_item td {
+ width:800px;padding:10px 0; text-align:center;
+}
+
+.qna_item td:first-child {
+ width:80px;        
+}
+.qna_item td:nth-child(2) {
+ width:140px;
+}
+.qna_item td:nth-child(4) {
+ width:150px;
+}
+.qna_item td:nth-child(5) {
+ width:150px;
+}
+.qna_item td:nth-child(6) {
+ width:100px;        
+}
+
+.qna_item .qna_writeDate  {
+	width:140px; font-size:14px;
+} 
+ 
+.qna_list .qna_contents {
+ padding:20px; text-align : center; background-color:rgb(250,250,250);  border-radius:20px;
+}
+
+.qna_list .qna_contents p {
+	margin: 20px;
+}
+
+.qna_list .qna_contents .Q_mark {
+	display:inline-block; padding:5px 7px; margin-right:5px;width:30px; height:30px;color:white;background-color:#0F0573;border-radius: 100%;
+}
+
+.qna_list .qna_contents .A_mark {
+	display:inline-block; padding:6px 8px; margin-right:5px; width:30px; height:30px;color:white;background-color:rgb(150,150,150);border-radius: 100%;
+}
+
+.qna_list .btn1 {
+	padding:8px 10px;
+	text-align: center;
+    font-size: 12px;
+    color: #FFFFFF;
+    border: 1px solid #0F0573;
+    background-color: #0F0573;
+    border-radius: 5px;
+}
+.qna_list .btn2 {
+	padding:8px 10px;
+	text-align: center;
+    font-size: 12px;
+    border: 1px solid #0F0573;
+    color: #0F0573;
+    background-color: #FFFFFF;
+    border-radius: 5px;
+}
+
+/* .qna_list .qna_write_btn {
+	margin-left:150px;
+} */
+
+.answer_modify_btn {
+	margin-left:80px;
+}
+
+#qna_write_popup {
+	width:600px; height:400px; padding:20px;
+    background:white; border:1px solid rgb(150,150,150); border-radius:25px;
+   	position: absolute; left:750px; top:250px; 	
+}
+
+#qna_write_popup>p:first-child {
+ font-size:16px; font-weight:bold; 
+ margin-bottom:20px;
+}
+ 
+#qna_write_popup .qna_text {
+	clear:both; 
+}
+
+#qna_write_popup .qna_text .qna_title, .qna_contents  {
+ padding:10px; font-size:14px;
+}
+
+#qna_write_popup .qna_text .qna_title input, textarea {
+ width:500px; float:right; 
+}
+
+#qna_write_popup .qna_write {
+	background-color: #0F0573;  color:white; padding:10px 20px;  margin:0 220px; display: inline-block; 
+	border:none; border-radius:5px; 
+} 
+
+
+#qna_modify_popup {
+	width:600px; height:400px; padding:20px;
+    background:white; border:1px solid rgb(150,150,150); border-radius:25px;
+   	position: absolute; left:750px; top:250px; 	
+ 
+}
+
+#qna_modify_popup>p:first-child {
+ font-size:16px; font-weight:bold; 
+  margin-bottom:20px;
+}
+ 
+
+#qna_modify_popup .qna_text {
+	clear:both; 
+}
+
+#qna_modify_popup .qna_text .qna_title, .qna_contents  {
+ padding:10px; font-size:14px;
+}
+
+#qna_modify_popup .qna_text .qna_title input, textarea {
+ width:500px; float:right; 
+}
+
+#qna_modify_popup .qna_modify {
+	background-color: #0F0573;  color:white; padding:10px 20px;  margin:0 220px; display: inline-block; 
+	border:none; border-radius:5px; 
+} 
+
+/* 상품관리 */
+#admin_product_title {
+	margin-top: 30px;
+	margin-bottom: 20px;
+	padding: 5px;
+	font-size: 25px;
+	text-align: center;
+}
+
+#product_detail {
+	width: 100%;
+	padding: 10px;
+	line-height: 40px;
+}
+
+#product_detail th {
+	border-bottom: 1px solid rgb(244, 244, 244);
+	text-align: center;
+}
+
+#product_detail td {
+	border-bottom: 1px solid rgb(244, 244, 244);
+	text-align: center;
+}

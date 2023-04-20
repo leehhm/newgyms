@@ -1,0 +1,81 @@
+@charset "UTF-8";
+@font-face {
+  font-family: 'GmarketSansMedium';
+  src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+* {
+  font-family: 'GmarketSansMedium';
+  margin: 0px;
+  padding: 0px;
+}
+
+/* cutsom */
+.con-min-width {
+  min-width: 1920px;
+  /* background-color: aliceblue; */
+}
+
+.con {
+  width: 1200px;
+  margin: 0 auto;
+  /* background-color: pink; */
+}
+
+/* footer */
+.footer-1 {
+  display: flex;
+  width: 1200px;
+  height: 300px;
+  /* background-color: skyblue; */
+  padding-top:50px;
+}
+
+.footer-1>.footer-1__1 button {
+  padding: 5px 20px;
+  border: 1px solid #dfdfdf;
+  border-radius: 3px;
+  background-color: white;
+}
+
+.footer-1__1 {
+  /* background-color: #F9C200; */
+  width: 600px;
+}
+
+.footer-1__2 {
+  /* background-color: bisque; */
+  width: 600px;
+}
+
+.footer-2 {
+  display: flex;
+  width: 1200px;
+  height: 50px;
+  /* background-color: aquamarine; */
+}
+
+.footer-2__1 {
+  /* background-color: pink; */
+  width: 600px;
+}
+.footer-2__1 > div:hover {
+  text-decoration: underline;
+  text-underline-position: under;
+}
+
+.footer-2__2 {
+  /* background-color: yellow; */
+  width: 600px;
+}
+
+.footer-2__2>a {
+  margin-right: 28px;
+}
+
+.footer-2__2>a>img {
+  width: 40px;
+  height: 40px;
+}

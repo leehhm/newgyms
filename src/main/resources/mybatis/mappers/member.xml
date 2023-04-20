@@ -1,0 +1,284 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.member">
+<!-- 리절트 맵 정의 -->   
+   <resultMap id="memberResult" type="MemberVO">
+      <result property="member_id" column="member_id" />
+      <result property="member_pw" column="member_pw" />
+      <result property="member_name" column="member_name" />
+      <result property="member_gender" column="member_gender" />
+      <result property="member_rrn1" column="member_rrn1" />
+      <result property="member_rrn2" column="member_rrn2" />
+      
+      <result property="member_birth_y" column="member_birth_y" />
+      <result property="member_birth_m" column="member_birth_m" />
+      <result property="member_birth_d" column="member_birth_d" />
+      
+      <result property="hp1" column="hp1" />
+      <result property="hp2" column="hp2" />
+      <result property="hp3" column="hp3" />
+      <result property="smssts_yn" column="smssts_yn" />
+      <result property="email1" column="email1" />
+      <result property="email2" column="email2" />
+      <result property="emailsts_yn" column="emailsts_yn" />
+      
+      <result property="zipcode" column="zipcode" />
+      <result property="road_address" column="road_address" />
+      <result property="jibun_address" column="jibun_address" />
+      <result property="namuji_address" column="namuji_address" />
+      <result property="join_date" column="join_date" />
+      <result property="join_type" column="join_type" />
+      
+      <result property="center_name" column="center_name" />
+      <result property="owner_eid" column="owner_eid" />
+      <result property="owner_tel1" column="owner_tel1" />
+      <result property="owner_tel2" column="owner_tel2" />
+      <result property="owner_tel3" column="owner_tel3" />
+      
+   </resultMap>   
+
+   <select id="login" resultType="memberVO"  parameterType="java.util.Map"  >
+       <![CDATA[
+         select * from t_member 
+          where member_id=#{member_id}
+          and member_pw=#{member_pw}
+          and join_type=#{join_type}
+      ]]>
+   </select>
+   
+   <select id="joinCheck" resultType="memberVO"  parameterType="java.util.Map"  >
+       <![CDATA[
+         select *
+         from t_member 
+         where member_name=#{member_name} and member_rrn1=#{member_rrn1} and member_rrn2=#{member_rrn2}                   
+      ]]>
+   </select>
+   
+   <select id="selectOverlappedID" parameterType="String" resultType="String">
+      select 
+       CASE WHEN count(*) = 1 THEN 'true'
+       ELSE 'false' END AS count 
+      from t_member
+      where member_id = #{id}
+   </select>
+   
+   <select id="selectOverlappedEID" parameterType="String" resultType="String">
+      select 
+       CASE WHEN count(*) = 1 THEN 'true'
+       ELSE 'false' END AS count 
+      from t_member
+      where owner_eid = #{eid}
+   </select>
+   
+  <insert id="insertNewMember"  parameterType="memberVO">
+  <![CDATA[
+       insert into t_member(join_type,
+                            member_id,
+                            member_pw,
+                            member_name,
+                            member_gender,
+                            member_rrn1,
+                            member_rrn2,
+                            hp1,
+                            hp2,
+                            hp3,
+                            smssts_yn,
+                            email1,
+                            email2,
+                            emailsts_yn,
+                            zipcode,
+                            road_address,
+                            jibun_address,
+                            namuji_address,
+                            member_birth_y,
+                            member_birth_m,
+                            member_birth_d)
+                      values(#{join_type},
+                             #{member_id},
+                             #{member_pw},
+                             #{member_name},
+                             #{member_gender},
+                             #{member_rrn1},
+                             #{member_rrn2},
+                             #{hp1},
+                             #{hp2},
+                             #{hp3},
+                             #{smssts_yn},
+                             #{email1},
+                             #{email2},
+                             #{emailsts_yn},
+                             #{zipcode},
+                             #{road_address},
+                             #{jibun_address},
+                             #{namuji_address},
+                             #{member_birth_y},
+                             #{member_birth_m},
+                             #{member_birth_d})
+                                  
+                                      
+   ]]>      
+  </insert>
+  
+  <insert id="insertNewOwner"  parameterType="memberVO">
+  <![CDATA[
+       insert into t_member(join_type,
+                            member_id,
+                            member_pw,
+                            member_name,
+                            member_gender,
+                            member_rrn1,
+                            member_rrn2,
+                            hp1,
+                            hp2,
+                            hp3,
+                           	smssts_yn,
+                            email1,
+                            email2,
+                            emailsts_yn,
+                            zipcode,
+                            road_address,
+                            jibun_address,
+                            namuji_address,
+                            center_name,
+                            owner_eid,
+                            owner_tel1,
+                            owner_tel2,
+                            owner_tel3,
+                            member_birth_y,
+                            member_birth_m,
+                            member_birth_d)
+                      values(#{join_type},
+                             #{member_id},
+                             #{member_pw},
+                             #{member_name},
+                             #{member_gender},
+                             #{member_rrn1},
+                             #{member_rrn2},
+                             #{hp1},
+                             #{hp2},
+                             #{hp3},
+                             #{smssts_yn},
+                             #{email1},
+                             #{email2},
+                             #{emailsts_yn},
+                             #{zipcode},
+                             #{road_address},
+                             #{jibun_address},
+                             #{namuji_address},
+                             #{center_name},
+                             #{owner_eid},
+                             #{owner_tel1},
+                             #{owner_tel2},
+                             #{owner_tel3},
+                             #{member_birth_y},
+                             #{member_birth_m},
+                             #{member_birth_d})               
+   ]]>      
+  </insert>
+  
+  <insert id="insertKakaoMember" parameterType="memberVO">
+  <![CDATA[
+       insert into t_member(join_type,
+                             member_id,
+                             member_pw,
+                             member_name,
+                             email1,
+                             email2,
+                             emailsts_yn,
+                             member_gender,
+                             member_birth_y,
+                             member_birth_m,
+                             member_birth_d,
+                             zipcode,
+                             road_address,
+                             jibun_address,
+                             namuji_address,
+                             hp1,
+                             hp2,
+                             hp3,
+                             smssts_yn)
+                      values(#{join_type},
+                            #{member_id},
+                            #{member_pw},
+                            #{member_name},
+                            #{email1},
+                            #{email2},
+                            #{emailsts_yn},
+                            #{member_gender},
+                            #{member_birth_y},
+                            #{member_birth_m},
+                            #{member_birth_d},
+                            #{zipcode},
+                            #{road_address},
+                            #{jibun_address},
+                            #{namuji_address},
+                            #{hp1},
+                            #{hp2},
+                            #{hp3},
+                            #{smssts_yn})                              
+   ]]>      
+  </insert>
+  
+  <select id="kakaoLogin" resultType="memberVO"  parameterType="String"  >
+       <![CDATA[
+         select * 
+         from t_member 
+         where member_id=#{member_id}
+      ]]>
+   </select>
+   
+   
+   <select id="searchId" parameterType="java.util.Map" resultType="memberVO">
+   
+   <![CDATA[
+            select * from t_member
+             where member_name=#{member_name}
+             and hp1=#{hp1}
+             and hp2=#{hp2}
+             and hp3=#{hp3}
+         ]]>
+   </select>
+   
+   
+   <select id="searchId1" parameterType="java.util.Map" resultType="memberVO">
+   
+   <![CDATA[
+            select * from t_member
+             where member_name=#{member_name}
+             and email1=#{email1}
+             and email2=#{email2}
+         ]]>
+   </select>
+   
+   
+   <select id="searchPw" parameterType="java.util.Map" resultType="memberVO">
+   
+   <![CDATA[
+            select * from t_member
+             where member_id =#{member_id}
+             and member_name=#{member_name}
+             and email1=#{email1}
+             and email2=#{email2}
+         ]]>
+   </select>
+   
+
+   <update id="newPw" parameterType="java.util.Map">
+   <![CDATA[
+            update t_member 
+            set member_pw=#{member_pw} 
+            where member_id=#{member_id}
+         ]]>
+   </update>
+   
+      	<select id="selectOwnerDetail" resultMap="memberResult"   parameterType="String"  >
+	    <![CDATA[
+		     select * from t_member
+			where member_id=#{member_id}
+    	]]>
+	</select>
+   
+</mapper>

@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+   
+<mapper namespace="mapper.board">
+	<resultMap id="articlesResult" type="articleVO">
+		<result property="level" column="level" />
+		<result property="article_no" column="article_no" />
+		<result property="parent_no" column="parent_no" />
+		<result property="board_title" column="board_title" />
+		<result property="board_content" column="board_content" />
+		<result property="board_write_date" column="board_write_date" />
+		<result property="board_image" column="board_image" />
+	</resultMap>
+	
+	<resultMap id="imgResult" type="imageVO">
+		<result property="imageFileNO" column="imageFileNO" />
+		<result property="article_no" column="article_no" />
+		<result property="board_image" column="board_image" />
+	</resultMap>
+	
+	<resultMap id="replyResult" type="replyVO">
+		<result property="article_no" column="article_no" />
+		<result property="member_id" column="member_id" />
+		<result property="reply_no" column="reply_no" />
+		<result property="reply_content" column="reply_content" />
+		<result property="reply_write_date" column="reply_write_date" />
+	</resultMap>
+	
+	<select id="selectAllArticlesList" resultMap="articlesResult">
+		<![CDATA[
+			SELECT CASE WHEN LEVEL -1 > 0 then CONCAT(CONCAT(REPEAT(' ', 
+			level-1),'<'), board.board_title) ELSE board.board_title END AS board_title, board.article_no, 
+			board.parent_no, result.level, board.board_content, board.member_id, date_format(board.board_write_date, '%Y-%m-%d') as board_write_date
+			FROM (SELECT function_hierarchical() AS article_no, @level AS level 
+			FROM (SELECT @start_with:=0, @article_no:= @start_with, @level:=0) tbl JOIN t_board) 
+			result JOIN t_board board ON board.article_no = result.article_no
+			order by article_no desc
+		]]>
+	</select>
+	
+	<insert id="insertNewArticle" parameterType="java.util.Map">
+		<![CDATA[
+			insert into t_board(article_no, board_title, board_content, board_image, member_id)
+			values(#{article_no}, #{board_title}, #{board_content}, #{board_image}, #{member_id})
+		]]>
+	</insert>
+	
+	<select id="selectNewArticleNO" resultType="int">
+		<![CDATA[
+			select ifnull(max(article_no), 0) + 1 from t_board
+		]]>
+	</select>
+	
+	<select id="selectArticle" resultType="articleVO" parameterType="int">
+		<![CDATA[
+			select * from t_board
+			where article_no=#{article_no}
+		]]>
+	</select>
+	
+	<update id="updateArticle" parameterType="java.util.Map">
+		<![CDATA[
+			update t_board
+			set board_title=#{board_title}, board_content=#{board_content}, board_image=#{board_image}
+			where article_no = #{article_no}
+		]]>
+	</update>
+	
+	<delete id="deleteArticle" parameterType="int">
+		<![CDATA[
+			delete from t_board
+			where article_no in (
+				SELECT article_no 
+				FROM t_board 
+				WHERE article_no = #{article_no} OR parent_no = #{article_no})
+		]]>
+	</delete>
+	
+	<select id="selectNewImageFileNO" resultType="int">
+		<![CDATA[
+			select ifnull(max(imageFileNO),0) from t_board
+		]]>
+	</select>
+	
+	<select id="selectImageFileList" resultMap="imgResult" parameterType="int">
+		<![CDATA[
+			select * from t_board
+			where article_no=#{article_no}
+		]]>
+	</select>
+	
+	<select id="selectReplyList" resultMap="replyResult" parameterType="int">
+		<![CDATA[
+			select *
+			from t_board_reply
+			where article_no=#{article_no}
+		]]>
+	</select>
+	
+	<insert id="addReply" parameterType="java.util.Map">
+		<![CDATA[
+		    insert into t_board_reply(article_no,
+		    						member_id, 
+	    							reply_content)
+		       				 values(#{article_no},
+    						        #{member_id},
+    						        #{reply_content})
+    	]]>
+	</insert>
+	
+	<delete id="removeReply" parameterType="int">
+		<![CDATA[
+		    delete from t_board_reply
+		    where reply_no=#{reply_no}
+    	]]>
+	</delete>
+	
+</mapper>

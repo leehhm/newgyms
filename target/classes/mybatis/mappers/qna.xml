@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+	PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.qna">
+
+	<resultMap id="qnaResult"  type="QnaVO" >
+		<result column="qna_no" property="qna_no"/>
+		<result column="qna_parent_no" property="qna_parent_no"/>
+		<result column="product_id" property="product_id"/>
+		<result column="member_id" property="member_id"/>
+		<result column="qna_answer_state" property="qna_answer_state"/>
+		<result column="qna_secret" property="qna_secret"/>
+		<result column="qna_title" property="qna_title"/>
+		<result column="qna_contents" property="qna_contents"/>
+		<result column="qna_wirte_date" property="qna_write_date"/>
+		
+	</resultMap>
+	
+
+	<select id="selectProductQuestionList" parameterType="String" resultMap="qnaResult">
+		<![CDATA[
+ 			select * from t_qna
+			where product_id=#{product_id} and qna_parent_no=0
+			order by qna_write_date desc
+		]]>
+	</select>
+	
+	<select id="selectProductAnswerList" parameterType="String" resultMap="qnaResult">
+		<![CDATA[
+ 			select * from t_qna
+			where product_id=#{product_id} and qna_parent_no!=0
+			order by qna_write_date desc
+		]]>
+	</select>
+
+	<insert id="insertQuestion"  parameterType="qnaVO">
+	  <![CDATA[
+	       insert into t_qna(qna_parent_no,
+	                            product_id,
+	                            member_id,
+	                            qna_answer_state,
+	                            qna_secret,
+	                            qna_title,
+	                            qna_contents)
+	                      values(#{qna_parent_no},
+	                             #{product_id},
+	                             #{member_id},
+	                             #{qna_answer_state},
+	                             #{qna_secret},
+	                             #{qna_title},
+	                             #{qna_contents})
+	                                      
+	   ]]>      
+	  </insert>
+</mapper>

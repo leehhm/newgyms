@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE tiles-definitions PUBLIC
+       "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN"
+       "http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions>
+     <definition name="/member/loginForm" extends="baseLayout">
+         <put-attribute name="title" value="로그인 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/member/loginForm.jsp" />
+      </definition>  
+            
+      <definition name="/member/joinCheck" extends="baseLayout">
+         <put-attribute name="title" value="회원 가입 중복확인 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/member/joinCheckForm.jsp" />
+      </definition>
+      
+      <definition name="/member/joinMember" extends="baseLayout">
+         <put-attribute name="title" value="일반회원 가입 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/member/joinMemberForm.jsp" />
+      </definition>
+      
+      <definition name="/member/joinOwner" extends="baseLayout">
+         <put-attribute name="title" value="사업자회원 가입 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/member/joinOwnerForm.jsp" />
+      </definition>
+      
+      <definition name="/member/joinAlready" extends="baseLayout">
+         <put-attribute name="title" value="회원 가입 중복 알림 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/member/joinAlready.jsp" />
+      </definition>
+      
+      <definition name="/member/kakaoJoinForm" extends="baseLayout">
+         <put-attribute name="title" value="회원 가입 중복 알림 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/member/kakaoJoinForm.jsp" />
+      </definition>
+      
+      
+      <definition name="/member/searchIdForm" extends="baseLayout">
+         <put-attribute name="title" value="아이디 찾기 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/member/searchidForm.jsp" />
+      </definition>
+      
+      <definition name="/member/searchPwForm" extends="baseLayout">
+         <put-attribute name="title" value="비밀번호 찾기 페이지" />
+         <put-attribute name="body" value="/WEB-INF/views/member/searchpwForm.jsp" />
+      </definition>
+      
+      <definition extends="baseLayout" name="/member/foundIdForm">
+         <put-attribute name="title" value="아이디찾기결과페이지"/>
+         <put-attribute name="body" value="/WEB-INF/views/member/foundIdForm.jsp"/>
+      </definition>
+      
+      
+      
+      
+      <definition extends="baseLayout" name="/member/foundPwForm">
+         <put-attribute name="title" value="비밀번호찾기결과페이지"/>
+         <put-attribute name="body" value="/WEB-INF/views/member/foundPwForm.jsp"/>
+      </definition>
+  
+</tiles-definitions>
+
